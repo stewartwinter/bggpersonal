@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;BGGPersonal/res/layout/activity_bgg.xml&apos; to &apos;activity_fragment.xml&apos;" description="Rename resource &apos;activity_bgg.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/layout/activity_bgg.xml" name="activity_fragment.xml" stamp="1393813739895" updateReferences="true"/>
+</session>
