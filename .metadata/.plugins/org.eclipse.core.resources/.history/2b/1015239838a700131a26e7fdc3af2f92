@@ -1,0 +1,56 @@
+package ca.winterfamily.bggpersonal;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import android.util.Log;
+
+public class BGGRemote {
+	
+	private static final String BGGURL = "http://boardgamegeek.com/xmlapi2/collection?";
+	private static final String BGGUSER = "username";
+	
+	private byte[] getUrlBytes(String urlspec) throws IOException {
+		Log.i("BGGPersonal",  "fetching url = " + urlspec);
+		URL url = new URL(urlspec);
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		
+		try {
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			
+			InputStream in = connection.getInputStream();
+			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+				return null;
+			}
+			int bytesRead = 0;
+			byte[] buffer = new byte[1024];
+			while ((bytesRead = in.read(buffer)) > 0) {
+				out.write(buffer, 0, bytesRead);
+			}
+			out.close();
+			
+			return out.toByteArray();
+		} catch (IOException e) {
+			Log.e("BGGPersonal", "IOException in BGGRemote", e);
+			throw(e);
+		} catch (Exception e) {
+			Log.e("BGGPersonal", "Generic Exception in BGGRemote", e);
+			return null;
+		} finally {
+			connection.disconnect();
+		}
+	}
+	
+	private String getUrl(String url) throws IOException {
+		return new String (getUrlBytes(url));
+	}
+	
+	String getCollection(String username) throws IOException {
+		String url = BGGURL + BGGUSER + "=" + username;
+		return getUrl(url);
+	}
+
+}

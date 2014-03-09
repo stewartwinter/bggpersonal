@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.widget.ArrayAdapter;
 
 public class GameListFragment extends ListFragment {
 	
@@ -13,10 +14,14 @@ public class GameListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		// todo: consider setting a title
-		// see page 171
+		getActivity().setTitle(R.string.collection_title);
 		
 		// get the games
 		mGameCollection = BGGUser.getBGGUser(getActivity()).getCollection();
+		
+		ArrayAdapter<Game> adapter =
+				new ArrayAdapter<Game>(getActivity(), android.R.layout.simple_list_item_1, mGameCollection);
+		setListAdapter(adapter);
+				
 	}
 }

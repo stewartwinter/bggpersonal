@@ -1,0 +1,79 @@
+package ca.winterfamily.bggpersonal;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import android.content.Context;
+import android.util.Log;
+import android.util.Xml;
+
+public class BGGUser {
+	private static BGGUser sBGGUser;
+	private Context mAppContext;
+	private String mUserName;
+	
+	private ArrayList<Game> mGameList = new ArrayList<Game>();
+	
+	private BGGUser(Context appContext) {
+		mAppContext = appContext;
+	}
+	
+	public void setUserName(String username) {
+		mUserName = username;
+		
+	}
+	
+	public void populate() throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
+		// todo: fetch info from BGG for user's collection
+		
+		BGGRemote rem = new BGGRemote();
+		rem.execute("scott");
+		String xml = rem.get();
+		Log.i("BGGPersonal", "collection xml in BGGUser " + xml);
+		
+		XmlPullParser parser = Xml.newPullParser();
+		parser.setInput(new StringReader(xml));
+	    int eventType = parser.getEventType();
+	    while (eventType != XmlPullParser.END_DOCUMENT) {
+	    	if ((eventType == XmlPullParser.START_TAG) && (parser.getName().compareTo("item") == 0)) {
+	    		Log.i("BGGPersonal","Start tag "+parser.getName());
+	    	}
+
+            eventType = parser.next();
+	    }
+	  
+	}
+	
+	public String getUserName() {
+		return mUserName;
+	}
+	
+	public static BGGUser getBGGUser(Context c) {
+		if (sBGGUser == null) {
+			sBGGUser = new BGGUser(c);
+		}
+		
+		// todo - get user from settings
+		try {
+			sBGGUser.setUserName("scott");
+			sBGGUser.populate();
+		} catch (Exception e) {
+			// todo: need to do something better than eating the exception
+			Log.e("BGGPersonal", "fetching user collection", e);
+		}
+		
+		return sBGGUser;
+	}
+	
+	public ArrayList<Game> getCollection() {
+		return mGameList;
+	}
+	
+	
+
+}
