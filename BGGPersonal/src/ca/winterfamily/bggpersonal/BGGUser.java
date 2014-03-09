@@ -25,12 +25,11 @@ public class BGGUser {
 	
 	public void setUserName(String username) {
 		mUserName = username;
-		
+		mGameList = new ArrayList<Game>();		
 	}
 	
 	public void populate() throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
-		// todo: fetch info from BGG for user's collection
-		
+	
 		BGGRemote rem = new BGGRemote();
 		rem.execute("scott");
 		String xml = rem.get();
