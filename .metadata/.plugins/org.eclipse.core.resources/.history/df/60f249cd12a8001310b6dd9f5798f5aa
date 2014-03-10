@@ -59,6 +59,14 @@ public class SettingsFragment extends Fragment {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						// inform user
+ 						Context context = getActivity().getApplicationContext();
+ 						CharSequence text = "Loading BGG Information";
+ 						int duration = Toast.LENGTH_LONG;
+
+ 						Toast toast = Toast.makeText(context, text, duration);
+ 						toast.show();
+ 						
  						// load user info
  						BGGUser.getBGGUser(getActivity()).setUserName(mUserName);
  						

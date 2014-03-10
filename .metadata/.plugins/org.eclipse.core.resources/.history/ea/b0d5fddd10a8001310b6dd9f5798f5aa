@@ -15,6 +15,7 @@ public class BGGRemote extends AsyncTask<String, Void, String> {
 	private static final String BGGUSER = "username";
 	
 	private byte[] getUrlBytes(String urlspec) throws IOException {
+		Log.i("BGGPersonal",  "fetching url = " + urlspec);
 		URL url = new URL(urlspec);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		
@@ -48,6 +49,7 @@ public class BGGRemote extends AsyncTask<String, Void, String> {
 		try {
 			String url = BGGURL + BGGUSER + "=" + username[0];
 			String xml = getUrl(url);
+//			Log.i("BGGPersonal",  "xml out = " + xml);
 			return xml;
 			
 		} catch (IOException e) {

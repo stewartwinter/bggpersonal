@@ -42,7 +42,6 @@ public class BGGUser {
 		} catch (IOException e) {
 
 		}
-		Log.i("BGGPersonal", "Read from storage " + name);
 		return name;
 	}
 	
@@ -86,6 +85,7 @@ public class BGGUser {
 		BGGRemote rem = new BGGRemote();
 		rem.execute(mUserName);
 		String xml = rem.get();
+		Log.i("BGGPersonal", "collection xml in BGGUser " + xml);
 		
 		XmlPullParser parser = Xml.newPullParser();
 		parser.setInput(new StringReader(xml));
@@ -154,21 +154,6 @@ public class BGGUser {
 	public static BGGUser getBGGUser(Context c) {
 		if (sBGGUser == null) {
 			sBGGUser = new BGGUser(c);
-			try {
-				sBGGUser.populate();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (XmlPullParserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		
 		return sBGGUser;

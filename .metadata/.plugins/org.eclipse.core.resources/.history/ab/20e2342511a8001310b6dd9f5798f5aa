@@ -154,21 +154,7 @@ public class BGGUser {
 	public static BGGUser getBGGUser(Context c) {
 		if (sBGGUser == null) {
 			sBGGUser = new BGGUser(c);
-			try {
-				sBGGUser.populate();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (XmlPullParserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			sBGGUser.populate();
 		}
 		
 		return sBGGUser;

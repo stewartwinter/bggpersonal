@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 public class GameListFragment extends ListFragment {
 	
 	private ArrayList<Game> mGameCollection;
-	ArrayAdapter<Game> mListAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,9 +25,9 @@ public class GameListFragment extends ListFragment {
 		// get the games
 		mGameCollection = BGGUser.getBGGUser(getActivity()).getCollection();
 		
-		mListAdapter =
+		ArrayAdapter<Game> adapter =
 				new ArrayAdapter<Game>(getActivity(), android.R.layout.simple_list_item_1, mGameCollection);
-		setListAdapter(mListAdapter);
+		setListAdapter(adapter);
 				
 	}
 	
@@ -56,7 +55,9 @@ public class GameListFragment extends ListFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		mListAdapter.notifyDataSetChanged();
+		ArrayAdapter<Game> adapter = (ArrayAdapter<Game>) getListAdapter();
+		
+		adapter.notifyDataSetChanged();
 
 	}
 }
