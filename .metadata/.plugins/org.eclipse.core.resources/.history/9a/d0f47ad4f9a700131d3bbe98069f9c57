@@ -51,13 +51,4 @@ public class GameListFragment extends ListFragment {
 		
 		}
 	}
-	
-	@Override
-	public void onResume() {
-		super.onResume();
-		ArrayAdapter<Game> adapter = (ArrayAdapter<Game>) getListAdapter();
-		
-		adapter.notifyDataSetChanged();
-
-	}
 }

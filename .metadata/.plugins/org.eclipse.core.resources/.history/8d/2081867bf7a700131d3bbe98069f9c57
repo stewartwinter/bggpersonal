@@ -1,14 +1,7 @@
 package ca.winterfamily.bggpersonal;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.StringReader;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -22,61 +15,19 @@ import android.util.Xml;
 public class BGGUser {
 	private static BGGUser sBGGUser;
 	private Context mAppContext;
-	private String mUserName = "";
+	private String mUserName;
 	
 	private ArrayList<Game> mGameList = new ArrayList<Game>();
 	
 	private BGGUser(Context appContext) {
 		mAppContext = appContext;
-		mUserName = readFromStorage();
 	}
 	
-	private String readFromStorage() {
-		String name = "";
-		try {
-			InputStream in = mAppContext.openFileInput("settings");
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			name = reader.readLine();
-			reader.close();
-		} catch (FileNotFoundException e) {
-		} catch (IOException e) {
-
-		}
-		return name;
-	}
-	
-	private void saveToStorage(String name) {
-		Writer writer = null;
-		try {
-			OutputStream out = mAppContext.openFileOutput("settings", Context.MODE_PRIVATE);
-			writer = new OutputStreamWriter(out);
-			writer.write(name);
-		} catch (FileNotFoundException e) {
-			// couldn't write ... ok
-		} catch (IOException e) {
-			// couldn't write ... ok
-		} finally {
-			if (writer != null) {
-				try {
-					writer.close();
-				} catch (IOException e) {
-
-				}
-			}
-		}
-	}
-	
-	public void setUserName(String username) {
-		if ( mUserName.compareTo(username) != 0) {
+	public void setUserName(String username) throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
+		if (mUserName.compareTo(username) != 0) {
 			mUserName = username;
-			saveToStorage(username);
 			mGameList = new ArrayList<Game>();
-			try {
-				populate();
-			} catch (Exception e) {
-				//TODO: something
-				Log.e("BGGPersonal", "In BGGUser.setUserName", e);
-			}
+			populate();
 		}
 	}
 	
@@ -154,6 +105,15 @@ public class BGGUser {
 	public static BGGUser getBGGUser(Context c) {
 		if (sBGGUser == null) {
 			sBGGUser = new BGGUser(c);
+		}
+		
+		// todo - get user from settings
+		try {
+			sBGGUser.setUserName("scott");
+//			sBGGUser.populate();
+		} catch (Exception e) {
+			// todo: need to do something better than eating the exception
+			Log.e("BGGPersonal", "fetching user collection", e);
 		}
 		
 		return sBGGUser;

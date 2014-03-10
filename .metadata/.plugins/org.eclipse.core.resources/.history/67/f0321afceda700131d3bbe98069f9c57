@@ -58,21 +58,12 @@ public class SettingsFragment extends Fragment {
 					@Override
 					public void onClick(View v) {
  						BGGUser.getBGGUser(getActivity()).setUserName(mUserName);
- 						getActivity().finish();
 					}
 					
 				}
 				);
 		
-		mCancelButton.setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
- 						getActivity().finish();
-					}
-					
-				}
-				);		
+		
 		
 		
 		return v;
