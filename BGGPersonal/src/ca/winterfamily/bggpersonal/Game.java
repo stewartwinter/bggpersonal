@@ -7,6 +7,8 @@ public class Game {
 	private String mName;
 	public boolean mOwned = false;
 	public int mPlays = 0;
+	public String mBggId = "";
+	public String mWishlist = "";
 	
 	public Game(String name) {
 		mId = UUID.randomUUID();

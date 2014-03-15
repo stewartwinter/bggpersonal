@@ -88,7 +88,7 @@ public class GameListFragment extends ListFragment {
 			TextView gameNameTextview = (TextView)convertView.findViewById(R.id.collection_item_game_name);
 			gameNameTextview.setText(game.getName());
 			TextView gamePlaysTextview = (TextView)convertView.findViewById(R.id.collection_item_game_plays);
-			gamePlaysTextview.setText(((Integer)game.mPlays).toString());
+			gamePlaysTextview.setText("Plays: " + ((Integer)game.mPlays).toString());
 			TextView gameOwnedTextview = (TextView)convertView.findViewById(R.id.collection_item_game_owned);
 			gameOwnedTextview.setText(game.mOwned?"Owned":"");
 			

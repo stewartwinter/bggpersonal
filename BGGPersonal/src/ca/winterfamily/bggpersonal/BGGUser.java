@@ -83,7 +83,7 @@ public class BGGUser {
 	
 	public void populate() throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
 	
-		BGGRemote rem = new BGGRemote();
+		BGGRemoteUserCollection rem = new BGGRemoteUserCollection();
 		rem.execute(mUserName);
 		String xml = rem.get();
 		
@@ -95,19 +95,34 @@ public class BGGUser {
     	boolean inNumplays = false;
     	boolean inStatus = false;
     	Game curGame = null;
+    	boolean skip = false;
 	    while (eventType != XmlPullParser.END_DOCUMENT) {
 	    	switch (eventType) {
 	    		case XmlPullParser.START_TAG:
 		    		if (parser.getName().compareTo("item") == 0) {
 		    			inItem = true;
-		    			curGame = new Game();
-		    		} else if (inItem && (parser.getName().compareTo("name") == 0)) {
+		    			skip = false;
+		    			curGame = null;
+		    			
+		    			String objecttype = parser.getAttributeValue(null,  "objecttype");
+		    			String objectid = parser.getAttributeValue(null, "objectid");
+		    			String subtype = parser.getAttributeValue(null, "subtype");
+		    			
+		    			if (subtype.compareTo("boardgame") != 0)  {
+		    				skip = true;
+		    			} else {
+			    			curGame = new Game();
+			    			curGame.mBggId = objectid;
+		    			}
+		    			
+		    		} else if (!skip && inItem && (parser.getName().compareTo("name") == 0)) {
 		    			inName = true;
-		    		} else if (inItem && (parser.getName().compareTo("numplays") == 0)) {
+		    		} else if (!skip && inItem && (parser.getName().compareTo("numplays") == 0)) {
 		    			inNumplays = true;
-		    		} else if (inItem && (parser.getName().compareTo("status") == 0)) {
+		    		} else if (!skip && inItem && (parser.getName().compareTo("status") == 0)) {
 		    			inStatus = true;
 		    			String own = parser.getAttributeValue(null,  "own");
+		    			curGame.mWishlist = parser.getAttributeValue(null, "wishlist");
 		    			Log.i("BGGPersonal", "own in BGGUser " + own);
 		    			if (own.compareToIgnoreCase("1") == 0) {
 		    				curGame.mOwned = true;
@@ -117,24 +132,26 @@ public class BGGUser {
 	    			
 	    		case XmlPullParser.END_TAG:
 		    		if (inItem && (parser.getName().compareTo("item") == 0)) {
+		    			if (!skip && (curGame.mOwned || (curGame.mWishlist.compareTo("5") != 0))) {
+		    				mGameList.add( curGame );
+		    			}
 		    			inItem = false;
 		    			inName = false;
 		    		   	inNumplays = false;
 		    		    curGame = null;
-		    		} else if (inName && (parser.getName().compareTo("name") == 0)) {
+		    		} else if (!skip && inName && (parser.getName().compareTo("name") == 0)) {
 		    			inName = false;
-		    		} else if (inNumplays && (parser.getName().compareTo("numplays") == 0)) {
+		    		} else if (!skip && inNumplays && (parser.getName().compareTo("numplays") == 0)) {
 		    			inNumplays = false;
-		    		} else if (inStatus && (parser.getName().compareTo("status") == 0)) {
+		    		} else if (!skip && inStatus && (parser.getName().compareTo("status") == 0)) {
 		    			inStatus = false;
 		    		}
 		    		break;
 		    		
 	    		case XmlPullParser.TEXT:
-		    		if (inName) {
+		    		if (!skip && inName) {
 		    			curGame.setName( parser.getText() );
-		    			mGameList.add( curGame );
-		    		} else if (inNumplays) {
+		    		} else if (!skip && inNumplays) {
 		    			curGame.mPlays = Integer.parseInt(parser.getText());
 		    		}
 		    		break;
