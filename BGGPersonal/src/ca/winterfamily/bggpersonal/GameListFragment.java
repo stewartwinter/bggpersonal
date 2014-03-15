@@ -9,25 +9,28 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class GameListFragment extends ListFragment {
 	
 	private ArrayList<Game> mGameCollection;
-	ArrayAdapter<Game> mListAdapter;
+	GameAdapter mListAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		
+		mGameCollection = BGGUser.getBGGUser(getActivity()).getCollection();
+		mListAdapter = new GameAdapter(mGameCollection);
+
 		getActivity().setTitle(R.string.collection_title);
 		
 		// get the games
-		mGameCollection = BGGUser.getBGGUser(getActivity()).getCollection();
-		
-		mListAdapter =
-				new ArrayAdapter<Game>(getActivity(), android.R.layout.simple_list_item_1, mGameCollection);
 		setListAdapter(mListAdapter);
 				
 	}
@@ -59,4 +62,39 @@ public class GameListFragment extends ListFragment {
 		mListAdapter.notifyDataSetChanged();
 
 	}
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		Game game = ((GameAdapter)getListAdapter()).getItem(position);
+		Log.d("BGGPersonal", game.getName() + " clicked");
+	}
+	
+	private class GameAdapter extends ArrayAdapter<Game> {
+		
+		public GameAdapter(ArrayList<Game> games) {
+			super(getActivity(), 0, games);
+		}
+	
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			if (convertView == null) {
+				convertView = getActivity().getLayoutInflater().inflate(R.layout.collection_item_game, null);
+			}
+			
+			// configure the view
+			Game game = getItem(position);
+			
+			TextView gameNameTextview = (TextView)convertView.findViewById(R.id.collection_item_game_name);
+			gameNameTextview.setText(game.getName());
+			TextView gamePlaysTextview = (TextView)convertView.findViewById(R.id.collection_item_game_plays);
+			gamePlaysTextview.setText(((Integer)game.mPlays).toString());
+			TextView gameOwnedTextview = (TextView)convertView.findViewById(R.id.collection_item_game_owned);
+			gameOwnedTextview.setText(game.mOwned?"Owned":"");
+			
+			
+			return convertView;
+		}
+	}
+
 }
