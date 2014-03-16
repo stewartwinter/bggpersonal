@@ -82,7 +82,6 @@ public class GameListFragment extends ListFragment {
 			e.printStackTrace();
 		}
 		game.populateFromXML(xml);
-		Log.d("BGGPersonal", game.getName() + " " + game.mYearPublished);
 		Intent intent = new Intent(getActivity(), GameFullDisplayActivity.class);
 		intent.putExtra(GameFullDisplayFragment.EXTRA_GAME_ID, game.mBggId);
 		startActivity(intent);

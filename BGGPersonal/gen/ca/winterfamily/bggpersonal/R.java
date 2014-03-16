@@ -28,10 +28,14 @@ public final class R {
         public static final int collection_item_game_owned=0x7f080002;
         public static final int collection_item_game_plays=0x7f080003;
         public static final int fragmentContainer=0x7f080000;
+        public static final int game_full_display_image=0x7f08000a;
         public static final int game_full_display_name=0x7f080008;
+        public static final int game_full_display_rank=0x7f08000b;
+        public static final int game_full_display_rating=0x7f08000c;
+        public static final int game_full_display_users_rating=0x7f08000d;
         public static final int game_full_display_year_published=0x7f080009;
         public static final int game_name=0x7f080004;
-        public static final int menu_item_bgg_info=0x7f08000a;
+        public static final int menu_item_bgg_info=0x7f08000e;
         public static final int setting_bgguser=0x7f080005;
         public static final int setting_cancel=0x7f080007;
         public static final int setting_save=0x7f080006;

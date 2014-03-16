@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class BGGRemoteGameInfo extends AsyncTask<String, Void, String> {
 	
-	private static final String BGGURL = "http://boardgamegeek.com/xmlapi2/thing?";
+	private static final String BGGURL = "http://boardgamegeek.com/xmlapi2/thing?stats=1&";
 	private static final String BGGID = "id";
 	
 	private byte[] getUrlBytes(String urlspec) throws IOException {

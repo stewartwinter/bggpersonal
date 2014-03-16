@@ -1,15 +1,27 @@
 package ca.winterfamily.bggpersonal;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.concurrent.ExecutionException;
+
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +31,10 @@ public class GameFullDisplayFragment extends Fragment {
 	
 	private TextView mYearPublishedTextView;
 	private TextView mNameTextView;
+	private TextView mRatingTextView;
+	private TextView mUsersRatingTextView;
+	private TextView mRankTextView;
+	private ImageView mThumbnailImageView;
 	Game mGame = null;
 	
 	@Override
@@ -34,14 +50,35 @@ public class GameFullDisplayFragment extends Fragment {
 		
 		mYearPublishedTextView = (TextView) v.findViewById(R.id.game_full_display_year_published);
 		mNameTextView = (TextView) v.findViewById(R.id.game_full_display_name);
+		mThumbnailImageView = (ImageView) v.findViewById(R.id.game_full_display_image);
+		mRatingTextView = (TextView) v.findViewById(R.id.game_full_display_rating);
+		mUsersRatingTextView = (TextView) v.findViewById(R.id.game_full_display_users_rating);
+		mRankTextView = (TextView) v.findViewById(R.id.game_full_display_rank);
 		
 		if (mGame != null) {
 			mNameTextView.setText(mGame.getName());
-			mYearPublishedTextView.setText(mGame.mYearPublished);
+			mYearPublishedTextView.setText("Published: " + mGame.mYearPublished);
+			mRatingTextView.setText("Average Rating: " + mGame.mAverageRating);
+			mUsersRatingTextView.setText("Users Rating: " + mGame.mNumberOfRatings);
+			mRankTextView.setText("BGG Rank: " + mGame.mRank);
+			if (mGame.mThumbnailUrl.length() > 0) {
+				BGGRemoteGetDrawableFromURL rem = new BGGRemoteGetDrawableFromURL();
+				rem.execute(mGame.mThumbnailUrl);
+				try {
+					mThumbnailImageView.setImageDrawable(rem.get());
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		} else {
 			mNameTextView.setText("Game not found");
 		}
 		return v;
 	}
+	
 
 }
