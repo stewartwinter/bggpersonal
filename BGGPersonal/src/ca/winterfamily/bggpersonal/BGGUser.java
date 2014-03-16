@@ -195,6 +195,14 @@ public class BGGUser {
 		return mGameList;
 	}
 	
+	public Game findGame(String gameId) {
+		for (Game g : mGameList) {
+			if (g.mBggId.compareTo(gameId) == 0)
+				return g;
+		}
+		return null;
+	}
+	
 	
 
 }

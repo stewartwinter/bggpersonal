@@ -1,6 +1,7 @@
 package ca.winterfamily.bggpersonal;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -67,6 +68,25 @@ public class GameListFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		Game game = ((GameAdapter)getListAdapter()).getItem(position);
 		Log.d("BGGPersonal", game.getName() + " clicked");
+		
+		BGGRemoteGameInfo rem = new BGGRemoteGameInfo();
+		rem.execute(game.mBggId);
+		String xml = "";
+		try {
+			xml = rem.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		game.populateFromXML(xml);
+		Log.d("BGGPersonal", game.getName() + " " + game.mYearPublished);
+		Intent intent = new Intent(getActivity(), GameFullDisplayActivity.class);
+		intent.putExtra(GameFullDisplayFragment.EXTRA_GAME_ID, game.mBggId);
+		startActivity(intent);
+
 	}
 	
 	private class GameAdapter extends ArrayAdapter<Game> {
