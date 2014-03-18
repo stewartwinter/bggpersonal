@@ -137,6 +137,8 @@ public class Game {
 			    		break;
 			    		
 		    		case XmlPullParser.TEXT:
+	//		    		if (inName) {
+	//		    		}
 			    		break;
 	
 			    		

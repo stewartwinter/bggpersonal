@@ -6,21 +6,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -46,18 +42,11 @@ public class GameFullDisplayFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		String id = (String)getActivity().getIntent().getSerializableExtra(EXTRA_GAME_ID);
 		mGame = BGGUser.getBGGUser(getActivity()).findGame(id);
-		
-		setHasOptionsMenu(true);
 	}
 	
-	@TargetApi(11)
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.game_full_display, parent, false);
-		
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
 		
 		mYearPublishedTextView = (TextView) v.findViewById(R.id.game_full_display_year_published);
 		mNameTextView = (TextView) v.findViewById(R.id.game_full_display_name);
@@ -91,17 +80,5 @@ public class GameFullDisplayFragment extends Fragment {
 		return v;
 	}
 	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case android.R.id.home:
-				if (NavUtils.getParentActivityName(getActivity()) != null) {
-					NavUtils.navigateUpFromSameTask(getActivity());
-				}
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-	}
 
 }

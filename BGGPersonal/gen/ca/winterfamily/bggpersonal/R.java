@@ -55,10 +55,11 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int bgg_info=0x7f050002;
         public static final int bgg_user_name=0x7f050003;
-        public static final int cancel_button=0x7f050007;
+        public static final int cancel_button=0x7f050008;
         public static final int collection_title=0x7f050005;
+        public static final int full_display_fragment_title=0x7f050006;
         public static final int game_name_label=0x7f050004;
-        public static final int save_button=0x7f050006;
+        public static final int save_button=0x7f050007;
     }
     public static final class style {
         /** 

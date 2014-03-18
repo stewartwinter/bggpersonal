@@ -1,7 +1,0 @@
-package ca.winterfamily.bggpersonal;
-
-import android.support.v4.app.FragmentActivity;
-
-public class SettingsActivity extends FragmentActivity {
-
-}

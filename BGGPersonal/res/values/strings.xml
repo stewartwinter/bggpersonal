@@ -7,6 +7,7 @@
     <string name="bgg_user_name">User Name</string>
 	<string name="game_name_label">Name</string>
 	<string name="collection_title">Collection</string>
+	<string name="full_display_fragment_title">Game Details</string>
 	
 	<string name="save_button">Save</string>
 	<string name="cancel_button">Cancel</string>

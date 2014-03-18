@@ -97,7 +97,7 @@ public class Game {
 			    			String objecttype = parser.getAttributeValue(null,  "type");
 			    			String objectid = parser.getAttributeValue(null, "id");
 			    			
-			    			if (!((objecttype.compareTo("boardgame") == 0) || (objecttype.compareTo("boardgameexpansion") == 0)) || (objectid.compareTo(mBggId) != 0)) {
+			    			if ((objecttype.compareTo("boardgame") != 0) || (objecttype.compareTo("boardgameexpansion") != 0) || (objectid.compareTo(mBggId) != 0)) {
 				    			return;
 			    			}
 			    			inItem = true;
@@ -137,6 +137,8 @@ public class Game {
 			    		break;
 			    		
 		    		case XmlPullParser.TEXT:
+	//		    		if (inName) {
+	//		    		}
 			    		break;
 	
 			    		
