@@ -84,7 +84,11 @@ public class BGGUser {
 	public void populate() throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
 	
 		BGGRemoteUserCollection rem = new BGGRemoteUserCollection();
+		RemoteTopGames topgamesRem = new RemoteTopGames();
+		Integer[] topGamesParms = {0, 100};
 		rem.execute(mUserName);
+		topgamesRem.execute(topGamesParms);
+
 		String xml = rem.get();
 		
 		XmlPullParser parser = Xml.newPullParser();
