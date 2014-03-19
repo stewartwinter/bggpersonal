@@ -38,6 +38,10 @@
             android:label="@string/full_display_fragment_title" >
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".GameCollectionActivity"/>
         </activity>        
-    </application>
+       <activity
+            android:name="ca.winterfamily.bggpersonal.TopGameListActivity"
+            android:label="@string/top_games_fragment_title" >
+        </activity>   
+       </application>
 
 </manifest>

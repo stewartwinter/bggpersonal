@@ -176,6 +176,7 @@ public class BGGUser {
 		    			game.setName(name);
 		    			game.mRank = rank;
 		    			game.mBggId = bggid;
+		    			mTopGames.add(game);
 		    			
 		    			
 	    		}
@@ -232,6 +233,10 @@ public class BGGUser {
 	
 	public ArrayList<Game> getCollection() {
 		return mGameList;
+	}
+	
+	public ArrayList<Game> getTopGames() {
+		return mTopGames;
 	}
 	
 	public Game findGame(String gameId) {

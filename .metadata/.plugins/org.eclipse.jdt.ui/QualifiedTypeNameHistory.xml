@@ -21,7 +21,6 @@
 <fullyQualifiedTypeName name="android.text.TextWatcher"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
-<fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.R.id"/>
 <fullyQualifiedTypeName name="android.view.View.OnAttachStateChangeListener"/>
 <fullyQualifiedTypeName name="android.widget.ListAdapter"/>
 <fullyQualifiedTypeName name="java.io.OutputStream"/>
@@ -54,4 +53,5 @@
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.R.id"/>
 <fullyQualifiedTypeName name="android.support.v4.app.NavUtils"/>
+<fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.R.id"/>
 </qualifiedTypeNameHistroy>

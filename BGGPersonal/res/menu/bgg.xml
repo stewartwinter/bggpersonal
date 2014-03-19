@@ -4,5 +4,8 @@
         android:id="@+id/menu_item_bgg_info"
         android:showAsAction="withText"
         android:title="@string/bgg_info"/>
-
+    <item
+        android:id="@+id/menu_item_top"
+        android:showAsAction="withText"
+        android:title="@string/action_top"/>
 </menu>

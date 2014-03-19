@@ -50,6 +50,11 @@ public class GameListFragment extends ListFragment {
 			Intent intent = new Intent(getActivity(), SettingsActivity.class);
 			startActivity(intent);
 			return true;
+			
+		case R.id.menu_item_top:
+			Intent topIntent = new Intent(getActivity(), TopGameListActivity.class);
+			startActivity(topIntent);
+			return true;
 
 		default:
 			return super.onOptionsItemSelected(item);
