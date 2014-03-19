@@ -54,4 +54,5 @@
 <fullyQualifiedTypeName name="android.R.id"/>
 <fullyQualifiedTypeName name="android.support.v4.app.NavUtils"/>
 <fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.R.id"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
 </qualifiedTypeNameHistroy>

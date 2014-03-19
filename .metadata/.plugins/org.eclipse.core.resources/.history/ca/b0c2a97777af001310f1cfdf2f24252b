@@ -242,7 +242,7 @@ public class BGGUser {
 	}
 	
 	public Game getDetailedGame(Integer bggid) {
-		if (!mGameDetailMap.containsKey(bggid)) {
+		if (mGameDetailMap.containsKey(bggid)) {
 			LoadableGame game = new LoadableGame(bggid);
 			mGameDetailMap.put(bggid, game);
 		}
