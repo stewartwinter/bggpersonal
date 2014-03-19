@@ -91,6 +91,7 @@ public class Game {
 		    while (eventType != XmlPullParser.END_DOCUMENT) {
 		    	switch (eventType) {
 		    		case XmlPullParser.START_TAG:
+		    			Log.d("BGGPersonal", "parsing " + parser.getName() + " " + (inItem && (parser.getName().compareTo("thumbnail") == 0)));
 			    		if (parser.getName().compareTo("item") == 0) {
 			    			
 			    			String objecttype = parser.getAttributeValue(null,  "type");

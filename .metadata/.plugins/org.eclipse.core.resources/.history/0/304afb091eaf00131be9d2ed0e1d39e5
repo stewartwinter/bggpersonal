@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class RemoteTopGames extends AsyncTask<Integer, Void, String> {
 	
-	private static final String TOPGAMES = "http://bgg.winterfamily.ca/bggtop.php?";
+	private static final String TOPGAMES = "http://bbg.winterfamily.ca/bggtop.php?";
 	private static final String AMOUNT = "amount";
 	private static final String AFTER = "after";
 	

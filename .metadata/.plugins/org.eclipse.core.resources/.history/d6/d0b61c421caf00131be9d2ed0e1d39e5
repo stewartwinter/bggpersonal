@@ -25,7 +25,6 @@ public class BGGUser {
 	private String mUserName = "";
 	
 	private ArrayList<Game> mGameList = new ArrayList<Game>();
-	private ArrayList<Game> mTopGames = new ArrayList<Game>();
 	
 	private BGGUser(Context appContext) {
 		mAppContext = appContext;
@@ -82,7 +81,16 @@ public class BGGUser {
 		}
 	}
 	
-	private void addGamesCollectionFromXml(String xml) throws XmlPullParserException, IOException {
+	public void populate() throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
+	
+		BGGRemoteUserCollection rem = new BGGRemoteUserCollection();
+		RemoteTopGames topgamesRem = new RemoteTopGames();
+		Integer[] topGamesParms = {0, 100};
+		rem.execute(mUserName);
+		topgamesRem.execute(topGamesParms);
+
+		String xml = rem.get();
+		
 		XmlPullParser parser = Xml.newPullParser();
 		parser.setInput(new StringReader(xml));
 	    int eventType = parser.getEventType();
@@ -119,6 +127,7 @@ public class BGGUser {
 		    			inStatus = true;
 		    			String own = parser.getAttributeValue(null,  "own");
 		    			curGame.mWishlist = parser.getAttributeValue(null, "wishlist");
+		    			Log.i("BGGPersonal", "own in BGGUser " + own);
 		    			if (own.compareToIgnoreCase("1") == 0) {
 		    				curGame.mOwned = true;
 		    			}
@@ -156,50 +165,6 @@ public class BGGUser {
 
             eventType = parser.next();
 	    }
-	
-	}
-	
-	public void addTopGames(String xml) throws XmlPullParserException, IOException {
-		XmlPullParser parser = Xml.newPullParser();
-		parser.setInput(new StringReader(xml));
-	    int eventType = parser.getEventType();
-    	
-	    while (eventType != XmlPullParser.END_DOCUMENT) {
-	    	switch (eventType) {
-	    		case XmlPullParser.START_TAG:
-		    		if (parser.getName().compareTo("game") == 0) {
-		    			String bggid = parser.getAttributeValue(null,  "bggid");
-		    			String name = parser.getAttributeValue(null, "name");
-		    			String rank = parser.getAttributeValue(null, "rank");
-		    			
-		    			Game game = new Game();
-		    			game.setName(name);
-		    			game.mRank = rank;
-		    			game.mBggId = bggid;
-		    			
-		    			
-	    		}
-	    		break;
-	    			
-	    	}
-
-            eventType = parser.next();
-	    }	
-	}
-	
-	public void populate() throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
-	
-		BGGRemoteUserCollection rem = new BGGRemoteUserCollection();
-		RemoteTopGames topgamesRem = new RemoteTopGames();
-		Integer[] topGamesParms = {0, 100};
-		rem.execute(mUserName);
-		topgamesRem.execute(topGamesParms);
-
-		String xml = rem.get();
-		addGamesCollectionFromXml(xml);
-		
-		xml = topgamesRem.get();
-		addTopGames(xml);
 	  
 	}
 	

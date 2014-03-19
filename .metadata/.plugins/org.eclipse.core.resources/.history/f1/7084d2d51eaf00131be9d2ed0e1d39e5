@@ -159,7 +159,7 @@ public class BGGUser {
 	
 	}
 	
-	public void addTopGames(String xml) throws XmlPullParserException, IOException {
+	public void addTopGames(String xml) throws XmlPullParserException {
 		XmlPullParser parser = Xml.newPullParser();
 		parser.setInput(new StringReader(xml));
 	    int eventType = parser.getEventType();
@@ -168,6 +168,8 @@ public class BGGUser {
 	    	switch (eventType) {
 	    		case XmlPullParser.START_TAG:
 		    		if (parser.getName().compareTo("game") == 0) {
+		    			inGame = true;
+		    			
 		    			String bggid = parser.getAttributeValue(null,  "bggid");
 		    			String name = parser.getAttributeValue(null, "name");
 		    			String rank = parser.getAttributeValue(null, "rank");

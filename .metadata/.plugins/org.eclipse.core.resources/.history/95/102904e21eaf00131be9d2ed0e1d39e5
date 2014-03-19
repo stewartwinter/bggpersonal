@@ -159,7 +159,7 @@ public class BGGUser {
 	
 	}
 	
-	public void addTopGames(String xml) throws XmlPullParserException, IOException {
+	public void addTopGames(String xml) throws XmlPullParserException {
 		XmlPullParser parser = Xml.newPullParser();
 		parser.setInput(new StringReader(xml));
 	    int eventType = parser.getEventType();

@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class RemoteTopGames extends AsyncTask<Integer, Void, String> {
 	
-	private static final String TOPGAMES = "http://bgg.winterfamily.ca/bggtop.php?";
+	private static final String TOPGAMES = "http://bbg.winterfamily.ca/bggtop.php?";
 	private static final String AMOUNT = "amount";
 	private static final String AFTER = "after";
 	
@@ -41,7 +41,6 @@ public class RemoteTopGames extends AsyncTask<Integer, Void, String> {
 	}
 	
 	private String getUrl(String url) throws IOException {
-		Log.d("BGGPersonal", "In REmoteTopGames.java fetching URL " + url);
 		return new String (getUrlBytes(url));
 	}
 	
