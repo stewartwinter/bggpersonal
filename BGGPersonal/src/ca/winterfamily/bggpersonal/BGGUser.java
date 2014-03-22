@@ -192,15 +192,63 @@ public class BGGUser {
 	    }	
 	}
 	
+	public void addHotGames(String xml) throws XmlPullParserException, IOException {
+		Log.d("BGGPersonal", "HOt games xml = " + xml);
+		XmlPullParser parser = Xml.newPullParser();
+		parser.setInput(new StringReader(xml));
+		
+		String bggid = "";
+		String name = "";
+		String year = "";
+		String thumbnail = "";
+		
+	    int eventType = parser.getEventType();
+	    while (eventType != XmlPullParser.END_DOCUMENT) {
+	    	switch (eventType) {
+	    		case XmlPullParser.START_TAG:
+		    		if (parser.getName().compareTo("item") == 0) {
+		    			bggid = parser.getAttributeValue(null,  "id");
+		    		} else if (parser.getName().compareTo("thumbnail") == 0) {
+		    			thumbnail = parser.getAttributeValue(null, "value");
+		    		} else if (parser.getName().compareTo("name") == 0) {
+		    			name = parser.getAttributeValue(null, "value");
+		    		} else if (parser.getName().compareTo("yearpublished") == 0) {
+		    			year = parser.getAttributeValue(null, "value");
+		    		}
+		    		break;
+		    	
+	    		case XmlPullParser.END_TAG:
+	    			if (parser.getName().compareTo("item") == 0) {
+	    				Game game = new Game();
+		    			game.setName(name);
+		    			game.mBggId = bggid;
+		    			game.mThumbnailUrl = thumbnail;
+		    			game.mYearPublished = year;
+		    			mHotGames.add(game);
+		    			Log.d("BGGPersonal", game.toString());
+	    			}
+	    		break;
+	    			
+	    	}
+
+            eventType = parser.next();
+	    }	
+	}
 	public void populate() throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
 	
-		BGGRemoteUserCollection rem = new BGGRemoteUserCollection();
+		BGGRemoteUserCollection collectionRem = new BGGRemoteUserCollection();
 		RemoteTopGames topgamesRem = new RemoteTopGames();
+		BGGRemoteHotGames hotgamesRem = new BGGRemoteHotGames();
+		
 		Integer[] topGamesParms = {0, 100};
-		rem.execute(mUserName);
+		hotgamesRem.execute();
+		collectionRem.execute(mUserName);
 		topgamesRem.execute(topGamesParms);
 
-		String xml = rem.get();
+		String xml = hotgamesRem.get();
+		addHotGames(xml);
+		
+		xml = collectionRem.get();
 		addGamesCollectionFromXml(xml);
 		
 		xml = topgamesRem.get();
@@ -241,6 +289,10 @@ public class BGGUser {
 	
 	public ArrayList<Game> getTopGames() {
 		return mTopGames;
+	}
+	
+	public ArrayList<Game> getHotGames() {
+		return mHotGames;
 	}
 	
 	public Game getDetailedGame(Integer bggid) {

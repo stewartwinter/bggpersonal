@@ -5,6 +5,10 @@
         android:showAsAction="withText"
         android:title="@string/bgg_info"/>
     <item
+        android:id="@+id/menu_item_hot"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/action_hot"/>
+    <item
         android:id="@+id/menu_item_top"
         android:showAsAction="ifRoom|withText"
         android:title="@string/action_top"/>

@@ -44,22 +44,11 @@ public class GameListFragment extends ListFragment {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.menu_item_bgg_info:
-			Log.i("BGGPersonal", "bgg info menu clicked");
-			Intent intent = new Intent(getActivity(), SettingsActivity.class);
-			startActivity(intent);
+		if (UIUtility.respondToMenu(item, this)) {
 			return true;
-			
-		case R.id.menu_item_top:
-			Intent topIntent = new Intent(getActivity(), TopGameListActivity.class);
-			startActivity(topIntent);
-			return true;
-
-		default:
-			return super.onOptionsItemSelected(item);
-		
 		}
+		return super.onOptionsItemSelected(item);
+		
 	}
 	
 	@Override
@@ -89,7 +78,7 @@ public class GameListFragment extends ListFragment {
 		game.populateFromXML(xml);*/
 		Intent intent = new Intent(getActivity(), GameFullDisplayActivity.class);
 		intent.putExtra(GameFullDisplayFragment.EXTRA_GAME_ID, game.mBggId);
-		intent.putExtra(GameFullDisplayFragment.EXTRA_PARENT_ACTIVITY,"GameCollectionActivity");
+		intent.putExtra(GameFullDisplayFragment.EXTRA_PARENT_ACTIVITY, getActivity().getClass().getName());
 		startActivity(intent);
 
 	}

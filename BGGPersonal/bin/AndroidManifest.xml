@@ -23,11 +23,6 @@
         <activity
             android:name="ca.winterfamily.bggpersonal.GameCollectionActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
        <activity
             android:name="ca.winterfamily.bggpersonal.SettingsActivity"
@@ -41,7 +36,15 @@
        <activity
             android:name="ca.winterfamily.bggpersonal.TopGameListActivity"
             android:label="@string/top_games_fragment_title" >
-        </activity>   
+        </activity>
+       <activity
+            android:name="ca.winterfamily.bggpersonal.HotGamesListActivity"
+            android:label="@string/hot_games_fragment_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            	<category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>         
        </application>
 
 </manifest>

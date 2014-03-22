@@ -16,9 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class TopGameListFragment extends ListFragment {
+public class HotGamesListFragment extends ListFragment {
 	
-	private ArrayList<Game> mTopGames;
+	private ArrayList<Game> mHotGames;
 	GameAdapter mListAdapter;
 
 	@Override
@@ -26,10 +26,10 @@ public class TopGameListFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		
-		mTopGames = BGGUser.getBGGUser(getActivity()).getTopGames();
-		mListAdapter = new GameAdapter(mTopGames);
+		mHotGames = BGGUser.getBGGUser(getActivity()).getHotGames();
+		mListAdapter = new GameAdapter(mHotGames);
 
-		getActivity().setTitle(R.string.top_games_fragment_title);
+		getActivity().setTitle(R.string.hot_games_fragment_title);
 		
 		// get the games
 		setListAdapter(mListAdapter);
@@ -92,16 +92,14 @@ public class TopGameListFragment extends ListFragment {
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
 			if (convertView == null) {
-				convertView = getActivity().getLayoutInflater().inflate(R.layout.top_game_list, null);
+				convertView = getActivity().getLayoutInflater().inflate(R.layout.hot_game_list, null);
 			}
 			
 			// configure the view
 			Game game = getItem(position);
 			
-			TextView gameNameTextview = (TextView)convertView.findViewById(R.id.top_games_game_name);
+			TextView gameNameTextview = (TextView)convertView.findViewById(R.id.hot_games_game_name);
 			gameNameTextview.setText(game.getName());
-			TextView gameRankTextview = (TextView)convertView.findViewById(R.id.top_games_game_rank);
-			gameRankTextview.setText("Rank: " + game.mRank);
 			
 			return convertView;
 		}

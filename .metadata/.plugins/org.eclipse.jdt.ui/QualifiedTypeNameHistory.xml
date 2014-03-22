@@ -4,7 +4,6 @@
 <fullyQualifiedTypeName name="android.view.LayoutInflater"/>
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentManager"/>
-<fullyQualifiedTypeName name="android.support.v4.app.Fragment"/>
 <fullyQualifiedTypeName name="android.os.Bundle"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
@@ -55,4 +54,5 @@
 <fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.R.id"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="android.support.v4.app.Fragment"/>
 </qualifiedTypeNameHistroy>

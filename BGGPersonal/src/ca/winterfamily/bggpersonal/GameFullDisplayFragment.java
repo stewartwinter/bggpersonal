@@ -102,7 +102,7 @@ public class GameFullDisplayFragment extends Fragment {
 			case android.R.id.home:
 				Intent parentIntent;
 				try {
-					parentIntent = new Intent(getActivity(), Class.forName("ca.winterfamily.bggpersonal."+ mParentActivityClass));
+					parentIntent = new Intent(getActivity(), Class.forName(mParentActivityClass));
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
