@@ -53,6 +53,7 @@ public class TopGameListFragment extends ListFragment {
 			
 		case R.id.menu_item_collection:
 			Intent collectionIntent = new Intent(getActivity(), GameCollectionActivity.class);
+			collectionIntent.putExtra("ParentClassName","TopGameListActivity");
 			startActivity(collectionIntent);
 			return true;
 
@@ -89,7 +90,6 @@ public class TopGameListFragment extends ListFragment {
 		game.populateFromXML(xml);
 		Intent intent = new Intent(getActivity(), GameFullDisplayActivity.class);
 		intent.putExtra(GameFullDisplayFragment.EXTRA_GAME_ID, game.mBggId);
-		intent.putExtra(GameFullDisplayFragment.EXTRA_PARENT_ACTIVITY, "TopGameListActivity");
 		startActivity(intent);
 
 	}

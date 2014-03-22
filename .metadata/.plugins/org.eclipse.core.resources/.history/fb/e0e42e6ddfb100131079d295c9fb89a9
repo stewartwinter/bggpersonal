@@ -6,10 +6,6 @@
         android:title="@string/bgg_info"/>
     <item
         android:id="@+id/menu_item_top"
-        android:showAsAction="ifRoom|withText"
+        android:showAsAction="withText"
         android:title="@string/action_top"/>
-    <item
-        android:id="@+id/menu_item_collection"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/action_collection"/>
 </menu>

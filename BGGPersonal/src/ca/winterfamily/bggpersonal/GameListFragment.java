@@ -89,6 +89,7 @@ public class GameListFragment extends ListFragment {
 		game.populateFromXML(xml);*/
 		Intent intent = new Intent(getActivity(), GameFullDisplayActivity.class);
 		intent.putExtra(GameFullDisplayFragment.EXTRA_GAME_ID, game.mBggId);
+		intent.putExtra(GameFullDisplayFragment.EXTRA_PARENT_ACTIVITY,"GameCollectionActivity");
 		startActivity(intent);
 
 	}

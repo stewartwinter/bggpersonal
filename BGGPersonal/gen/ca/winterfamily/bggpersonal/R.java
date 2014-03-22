@@ -36,6 +36,7 @@ public final class R {
         public static final int game_full_display_year_published=0x7f080009;
         public static final int game_name=0x7f080004;
         public static final int menu_item_bgg_info=0x7f080010;
+        public static final int menu_item_collection=0x7f080012;
         public static final int menu_item_top=0x7f080011;
         public static final int setting_bgguser=0x7f080005;
         public static final int setting_cancel=0x7f080007;

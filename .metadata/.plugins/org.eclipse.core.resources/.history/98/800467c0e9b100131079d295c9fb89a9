@@ -16,9 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class TopGameListFragment extends ListFragment {
+public class GameListFragment extends ListFragment {
 	
-	private ArrayList<Game> mTopGames;
+	private ArrayList<Game> mGameCollection;
 	GameAdapter mListAdapter;
 
 	@Override
@@ -26,10 +26,10 @@ public class TopGameListFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		
-		mTopGames = BGGUser.getBGGUser(getActivity()).getTopGames();
-		mListAdapter = new GameAdapter(mTopGames);
+		mGameCollection = BGGUser.getBGGUser(getActivity()).getCollection();
+		mListAdapter = new GameAdapter(mGameCollection);
 
-		getActivity().setTitle(R.string.top_games_fragment_title);
+		getActivity().setTitle(R.string.collection_title);
 		
 		// get the games
 		setListAdapter(mListAdapter);
@@ -51,9 +51,10 @@ public class TopGameListFragment extends ListFragment {
 			startActivity(intent);
 			return true;
 			
-		case R.id.menu_item_collection:
-			Intent collectionIntent = new Intent(getActivity(), GameCollectionActivity.class);
-			startActivity(collectionIntent);
+		case R.id.menu_item_top:
+			Intent topIntent = new Intent(getActivity(), TopGameListActivity.class);
+			topIntent.putExtra(GameFullDisplayFragment.EXTRA_PARENT_ACTIVITY,"GameCollectionActivity");
+			startActivity(topIntent);
 			return true;
 
 		default:
@@ -61,7 +62,7 @@ public class TopGameListFragment extends ListFragment {
 		
 		}
 	}
-
+	
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -73,7 +74,7 @@ public class TopGameListFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		Game game = ((GameAdapter)getListAdapter()).getItem(position);
 		Log.d("BGGPersonal", game.getName() + " clicked");
-		
+/*		
 		BGGRemoteGameInfo rem = new BGGRemoteGameInfo();
 		rem.execute(game.mBggId);
 		String xml = "";
@@ -86,10 +87,9 @@ public class TopGameListFragment extends ListFragment {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		game.populateFromXML(xml);
+		game.populateFromXML(xml);*/
 		Intent intent = new Intent(getActivity(), GameFullDisplayActivity.class);
 		intent.putExtra(GameFullDisplayFragment.EXTRA_GAME_ID, game.mBggId);
-		intent.putExtra(GameFullDisplayFragment.EXTRA_PARENT_ACTIVITY, "TopGameListActivity");
 		startActivity(intent);
 
 	}
@@ -104,16 +104,19 @@ public class TopGameListFragment extends ListFragment {
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
 			if (convertView == null) {
-				convertView = getActivity().getLayoutInflater().inflate(R.layout.top_game_list, null);
+				convertView = getActivity().getLayoutInflater().inflate(R.layout.collection_item_game, null);
 			}
 			
 			// configure the view
 			Game game = getItem(position);
 			
-			TextView gameNameTextview = (TextView)convertView.findViewById(R.id.top_games_game_name);
+			TextView gameNameTextview = (TextView)convertView.findViewById(R.id.collection_item_game_name);
 			gameNameTextview.setText(game.getName());
-			TextView gameRankTextview = (TextView)convertView.findViewById(R.id.top_games_game_rank);
-			gameRankTextview.setText("Rank: " + game.mRank);
+			TextView gamePlaysTextview = (TextView)convertView.findViewById(R.id.collection_item_game_plays);
+			gamePlaysTextview.setText("Plays: " + ((Integer)game.mPlays).toString());
+			TextView gameOwnedTextview = (TextView)convertView.findViewById(R.id.collection_item_game_owned);
+			gameOwnedTextview.setText(game.mOwned?"Owned":"");
+			
 			
 			return convertView;
 		}

@@ -8,5 +8,6 @@ public class GameInfoActivity extends SingleFragmentActivity {
 	protected Fragment createFragment() {
 		return new GameInfoFragment();
 	}
-
+	
 }
+
