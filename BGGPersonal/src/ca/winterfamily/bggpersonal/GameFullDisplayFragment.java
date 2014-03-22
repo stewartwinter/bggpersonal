@@ -100,21 +100,18 @@ public class GameFullDisplayFragment extends Fragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
-			Intent parentIntent;
-			try {
-				parentIntent = new Intent(getActivity(), Class.forName("ca.winterfamily.bggpersonal."+ mParentActivityClass));
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return super.onOptionsItemSelected(item);
-			}
-			parentIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(parentIntent);
-
-/*				if (NavUtils.getParentActivityName(getActivity()) != null) {
-					NavUtils.navigateUpFromSameTask(getActivity());
+				Intent parentIntent;
+				try {
+					parentIntent = new Intent(getActivity(), Class.forName("ca.winterfamily.bggpersonal."+ mParentActivityClass));
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return super.onOptionsItemSelected(item);
 				}
-*/				return true;
+				parentIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(parentIntent);
+
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}

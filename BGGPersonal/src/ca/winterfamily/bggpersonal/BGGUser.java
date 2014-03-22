@@ -27,6 +27,8 @@ public class BGGUser {
 	
 	private ArrayList<Game> mGameList = new ArrayList<Game>();
 	private ArrayList<Game> mTopGames = new ArrayList<Game>();
+	private ArrayList<Game> mHotGames = new ArrayList<Game>();
+	
 	private HashMap<Integer, LoadableGame> mGameDetailMap = new HashMap<Integer, LoadableGame>();
 	
 	private BGGUser(Context appContext) {
