@@ -45,12 +45,13 @@ public abstract class BGGRemote<PARMA> extends AsyncTask<PARMA, Void, String> {
 	protected String doInBackground(PARMA... parms) {
 		try {
 			String url = getUrlString(parms);
+			Log.d("BGGPersonal", "running xml " + url);
 			String xml = getUrl(url);
 			return xml;
 			
 		} catch (IOException e) {
 			// TODO: something with this exception
-			Log.e("BGGPersonal",  "BGGRemoteHotGames.doInBackground", e);
+			Log.e("BGGPersonal",  "BGGRemote.doInBackground", e);
 		}
 		return null;
 	}

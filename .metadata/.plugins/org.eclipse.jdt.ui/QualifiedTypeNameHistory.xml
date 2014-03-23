@@ -26,7 +26,6 @@
 <fullyQualifiedTypeName name="java.io.OutputStreamWriter"/>
 <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
-<fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="android.widget.ListView"/>
 <fullyQualifiedTypeName name="android.view.View"/>
@@ -55,4 +54,7 @@
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.support.v4.app.Fragment"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.BGGRemoteUserCollection.BGGRemoteUserCollectionParm"/>
+<fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.RemoteTopGames.RemoteTopGamesParm"/>
 </qualifiedTypeNameHistroy>

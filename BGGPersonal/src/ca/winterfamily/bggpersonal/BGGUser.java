@@ -78,7 +78,7 @@ public class BGGUser {
 			saveToStorage(username);
 			mGameList.clear();
 			try {
-				populate();
+				populateUserCollection();
 			} catch (Exception e) {
 				//TODO: something
 				Log.e("BGGPersonal", "In BGGUser.setUserName", e);
@@ -86,7 +86,9 @@ public class BGGUser {
 		}
 	}
 	
-	private void addGamesCollectionFromXml(String xml) throws XmlPullParserException, IOException {
+	public void addGamesCollectionFromXml(String xml) throws XmlPullParserException, IOException {
+		mGameList.clear();
+		
 		XmlPullParser parser = Xml.newPullParser();
 		parser.setInput(new StringReader(xml));
 	    int eventType = parser.getEventType();
@@ -164,6 +166,8 @@ public class BGGUser {
 	}
 	
 	public void addTopGames(String xml) throws XmlPullParserException, IOException {
+		mTopGames.clear();
+		
 		XmlPullParser parser = Xml.newPullParser();
 		parser.setInput(new StringReader(xml));
 	    int eventType = parser.getEventType();
@@ -193,7 +197,8 @@ public class BGGUser {
 	}
 	
 	public void addHotGames(String xml) throws XmlPullParserException, IOException {
-		Log.d("BGGPersonal", "HOt games xml = " + xml);
+		mHotGames.clear();
+		
 		XmlPullParser parser = Xml.newPullParser();
 		parser.setInput(new StringReader(xml));
 		
@@ -225,7 +230,6 @@ public class BGGUser {
 		    			game.mThumbnailUrl = thumbnail;
 		    			game.mYearPublished = year;
 		    			mHotGames.add(game);
-		    			Log.d("BGGPersonal", game.toString());
 	    			}
 	    		break;
 	    			
@@ -234,26 +238,30 @@ public class BGGUser {
             eventType = parser.next();
 	    }	
 	}
+	
+	public void populateUserCollection()  throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
+		BGGRemoteUserCollection collectionRem = new BGGRemoteUserCollection();
+		collectionRem.execute(new BGGRemoteUserCollection.BGGRemoteUserCollectionParm(this, mUserName));
+	}
+	
+	public void populatTopGames()  throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
+		RemoteTopGames topgamesRem = new RemoteTopGames();
+		topgamesRem.execute(new RemoteTopGames.RemoteTopGamesParm(this,  0, 100));
+
+	}
+	
+	
 	public void populate() throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
 	
-		BGGRemoteUserCollection collectionRem = new BGGRemoteUserCollection();
-		RemoteTopGames topgamesRem = new RemoteTopGames();
 		BGGRemoteHotGames hotgamesRem = new BGGRemoteHotGames();
-		
-		Integer[] topGamesParms = {0, 100};
 		hotgamesRem.execute();
-		collectionRem.execute(mUserName);
-		topgamesRem.execute(topGamesParms);
-
 		String xml = hotgamesRem.get();
 		addHotGames(xml);
 		
-		xml = collectionRem.get();
-		addGamesCollectionFromXml(xml);
+
+		populatTopGames();	
+		populateUserCollection();
 		
-		xml = topgamesRem.get();
-		addTopGames(xml);
-	  
 	}
 	
 	public String getUserName() {

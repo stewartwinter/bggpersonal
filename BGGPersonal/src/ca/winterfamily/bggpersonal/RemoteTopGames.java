@@ -1,71 +1,58 @@
 package ca.winterfamily.bggpersonal;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
-import android.os.AsyncTask;
-import android.util.Log;
+import org.xmlpull.v1.XmlPullParserException;
 
-public class RemoteTopGames extends AsyncTask<Integer, Void, String> {
-	
+public class RemoteTopGames extends BGGRemote<RemoteTopGames.RemoteTopGamesParm>
+{
 	private static final String TOPGAMES = "http://bgg.winterfamily.ca/bggtop.php?";
 	private static final String AMOUNT = "amount";
 	private static final String AFTER = "after";
 	
-	private byte[] getUrlBytes(String urlspec) throws IOException {
-		URL url = new URL(urlspec);
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	private BGGUser mBggUser;
+	
+	static class RemoteTopGamesParm {
+		final public Integer mAfter;
+		final public Integer mAmount;
+		final public BGGUser mUser;
 		
-		try {
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			
-			InputStream in = connection.getInputStream();
-			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				return null;
-			}
-			int bytesRead = 0;
-			byte[] buffer = new byte[1024];
-			while ((bytesRead = in.read(buffer)) > 0) {
-				out.write(buffer, 0, bytesRead);
-			}
-			out.close();
-			
-			return out.toByteArray();
-
-		} finally {
-			connection.disconnect();
+		RemoteTopGamesParm(BGGUser user, Integer after, Integer amount) {
+			mAfter = after;
+			mAmount = amount;
+			mUser = user;
 		}
+		
 	}
 	
-	private String getUrl(String url) throws IOException {
-		Log.d("BGGPersonal", "In REmoteTopGames.java fetching URL " + url);
-		return new String (getUrlBytes(url));
+
+	protected String getUrlString(RemoteTopGamesParm... parms)
+	{
+		mBggUser = parms[0].mUser;
+		
+		String url = TOPGAMES;
+		if (parms[0].mAfter != null) {
+			url += AFTER + "=" + parms[0].mAfter.toString();
+		}
+		if (parms[0].mAmount != null) {
+			url += "&" + AMOUNT + "=" + parms[0].mAmount.toString();
+		}
+		return url;
 	}
 	
-	/* Expect intsIn to be in the form of:
-	 *   int[0] = the start after value
-	 *   int[1] = the number to retrieve -- if not there, then use 100
-	 */
-	protected String doInBackground(Integer... intsIn) {
+	protected void onPostExecute(String xml) {
 		try {
-			String url = TOPGAMES;
-			if (intsIn.length > 0) {
-				url += AFTER + "=" + intsIn[0].toString();
-			}
-			if (intsIn.length > 1) {
-				url += "&" + AMOUNT + "=" + intsIn[1].toString();
-			}
-			String xml = getUrl(url);
-			return xml;
-			
+			mBggUser.addTopGames(xml);
+		} catch (XmlPullParserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO: something with this exception
-			Log.e("BGGPersonal",  "BGGRemote.doInBackground", e);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return null;
+		
 	}
-
+	
 }
+
+
