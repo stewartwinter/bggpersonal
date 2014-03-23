@@ -1,9 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
-        android:id="@+id/menu_item_bgg_info"
-        android:showAsAction="withText"
-        android:title="@string/bgg_info"/>
+
     <item
         android:id="@+id/menu_item_hot"
         android:showAsAction="ifRoom|withText"
@@ -16,4 +13,12 @@
         android:id="@+id/menu_item_collection"
         android:showAsAction="ifRoom|withText"
         android:title="@string/action_collection"/>
+    <item
+        android:id="@+id/menu_item_refresh"
+        android:showAsAction="withText"
+        android:title="@string/action_refresh"/>
+    <item
+        android:id="@+id/menu_item_bgg_info"
+        android:showAsAction="withText"
+        android:title="@string/bgg_info"/>
 </menu>
