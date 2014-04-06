@@ -28,6 +28,7 @@ public class BGGUser {
 	private ArrayList<Game> mGameList = new ArrayList<Game>();
 	private ArrayList<Game> mTopGames = new ArrayList<Game>();
 	private ArrayList<Game> mHotGames = new ArrayList<Game>();
+	private ArrayList<Game> mSearchResults = new ArrayList<Game>();
 	
 	private HashMap<Integer, LoadableGame> mGameDetailMap = new HashMap<Integer, LoadableGame>();
 	
@@ -239,6 +240,46 @@ public class BGGUser {
 	    }	
 	}
 	
+	public void addSearchResultsFromXML(String xml)  throws XmlPullParserException, IOException {
+		mSearchResults.clear();
+		
+		XmlPullParser parser = Xml.newPullParser();
+		parser.setInput(new StringReader(xml));
+		
+		String bggid = "";
+		String name = "";
+		String year = "";
+		
+	    int eventType = parser.getEventType();
+	    while (eventType != XmlPullParser.END_DOCUMENT) {
+	    	switch (eventType) {
+	    		case XmlPullParser.START_TAG:
+		    		if (parser.getName().compareTo("item") == 0) {
+		    			bggid = parser.getAttributeValue(null,  "id");
+		    		} else if (parser.getName().compareTo("name") == 0) {
+		    			name = parser.getAttributeValue(null, "value");
+		    		} else if (parser.getName().compareTo("yearpublished") == 0) {
+		    			year = parser.getAttributeValue(null, "value");
+		    		}
+		    		break;
+		    	
+	    		case XmlPullParser.END_TAG:
+	    			if (parser.getName().compareTo("item") == 0) {
+	    				Game game = new Game();
+		    			game.setName(name);
+		    			game.mBggId = bggid;
+		    			game.mYearPublished = year;
+		    			mSearchResults.add(game);
+	    			}
+	    		break;
+	    			
+	    	}
+
+            eventType = parser.next();
+	    }	
+
+	}
+	
 	public void populateUserCollection()  throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
 		BGGRemoteUserCollection collectionRem = new BGGRemoteUserCollection();
 		collectionRem.execute(new BGGRemoteUserCollection.BGGRemoteUserCollectionParm(this, mUserName));
@@ -248,6 +289,13 @@ public class BGGUser {
 		RemoteTopGames topgamesRem = new RemoteTopGames();
 		topgamesRem.execute(new RemoteTopGames.RemoteTopGamesParm(this,  0, 100));
 
+	}
+
+	public void populatSearchResults(String input)  throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
+		BGGRemoteSearch searchRem = new BGGRemoteSearch();
+		searchRem.execute(new BGGRemoteSearch.BGGRemoteSearchParm(this,  input));
+		String xml = searchRem.get();
+		addSearchResultsFromXML(xml);
 	}
 	
 	
@@ -301,6 +349,10 @@ public class BGGUser {
 	
 	public ArrayList<Game> getHotGames() {
 		return mHotGames;
+	}
+	
+	public ArrayList<Game> getSearchResults() {
+		return mSearchResults;
 	}
 	
 	public Game getDetailedGame(Integer bggid) {

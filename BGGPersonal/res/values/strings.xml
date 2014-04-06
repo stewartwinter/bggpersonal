@@ -6,16 +6,21 @@
     <string name="action_top">Top Games</string>
     <string name="action_hot">Hot Games</string>
     <string name="action_refresh">Refresh</string>
-    
+    <string name="action_search">Search</string>
+    <string name="clear_search">Clear</string>
     <string name="action_collection">Collection</string>
+    
     <string name="bgg_info">BGG Info</string>
     <string name="bgg_user_name">User Name</string>
 	<string name="game_name_label">Name</string>
 	<string name="collection_title">Collection</string>
+	<string name="settings_title">Settings</string>
 	<string name="full_display_fragment_title">Game Details</string>
 	<string name="top_games_fragment_title">Top Games</string>
 	<string name="hot_games_fragment_title">Hot Games</string>
+	<string name="search_results_fragment_title">Search Games</string>
 			
+	<string name="search_hint">Search BGG Games</string>
 	
 	<string name="save_button">Save</string>
 	<string name="cancel_button">Cancel</string>

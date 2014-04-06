@@ -33,6 +33,11 @@ public final class UIUtility {
 			case R.id.menu_item_hot:
 				Intent hotIntent = new Intent(f.getActivity(), HotGamesListActivity.class);
 				f.startActivity(hotIntent);
+				return true;	
+				
+			case R.id.menu_item_search:
+				Intent searchIntent = new Intent(f.getActivity(), SearchResultsActivity.class);
+				f.startActivity(searchIntent);
 				return true;
 				
 			case R.id.menu_item_refresh:

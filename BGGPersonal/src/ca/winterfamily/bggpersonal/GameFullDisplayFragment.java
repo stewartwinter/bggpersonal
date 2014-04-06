@@ -43,6 +43,8 @@ public class GameFullDisplayFragment extends Fragment {
 	private TextView mUsersRatingTextView;
 	private TextView mRankTextView;
 	private ImageView mThumbnailImageView;
+	private TextView mDescriptionView;
+	
 	Game mGame = null;
 	
 	@Override
@@ -70,6 +72,7 @@ public class GameFullDisplayFragment extends Fragment {
 		mRatingTextView = (TextView) v.findViewById(R.id.game_full_display_rating);
 		mUsersRatingTextView = (TextView) v.findViewById(R.id.game_full_display_users_rating);
 		mRankTextView = (TextView) v.findViewById(R.id.game_full_display_rank);
+		mDescriptionView = (TextView) v.findViewById(R.id.game_full_display_description);
 		
 		if (mGame != null) {
 			mNameTextView.setText(mGame.getName());
@@ -77,6 +80,7 @@ public class GameFullDisplayFragment extends Fragment {
 			mRatingTextView.setText("Average Rating: " + mGame.mAverageRating);
 			mUsersRatingTextView.setText("Users Rating: " + mGame.mNumberOfRatings);
 			mRankTextView.setText("BGG Rank: " + mGame.mRank);
+			mDescriptionView.setText("Description (scrollable): \n" + mGame.mDescription);
 			if (mGame.mThumbnailUrl.length() > 0) {
 				BGGRemoteGetDrawableFromURL rem = new BGGRemoteGetDrawableFromURL();
 				rem.execute(mGame.mThumbnailUrl);

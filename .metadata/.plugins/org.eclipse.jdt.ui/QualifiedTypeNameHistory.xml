@@ -5,7 +5,6 @@
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentManager"/>
 <fullyQualifiedTypeName name="android.os.Bundle"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
 <fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.R.string"/>
 <fullyQualifiedTypeName name="android.R.layout"/>
@@ -41,7 +40,6 @@
 <fullyQualifiedTypeName name="java.io.InputStream"/>
 <fullyQualifiedTypeName name="android.graphics.BitmapFactory"/>
 <fullyQualifiedTypeName name="android.graphics.drawable.BitmapDrawable"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.os.Build"/>
 <fullyQualifiedTypeName name="android.os.Build.VERSION"/>
 <fullyQualifiedTypeName name="android.os.Build.VERSION_CODES"/>
@@ -50,11 +48,14 @@
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.R.id"/>
 <fullyQualifiedTypeName name="android.support.v4.app.NavUtils"/>
-<fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.R.id"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.support.v4.app.Fragment"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.BGGRemoteUserCollection.BGGRemoteUserCollectionParm"/>
 <fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.RemoteTopGames.RemoteTopGamesParm"/>
+<fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.R.id"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="android.app.SearchManager"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

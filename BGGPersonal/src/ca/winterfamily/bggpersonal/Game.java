@@ -2,6 +2,7 @@ package ca.winterfamily.bggpersonal;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -13,6 +14,7 @@ import android.util.Xml;
 public class Game {
 	private UUID mId;
 	private String mName;
+	public String mDescription;
 	public boolean mOwned = false;
 	public int mPlays = 0;
 	public String mBggId = "";
@@ -22,6 +24,7 @@ public class Game {
 	public String mRank = "";
 	public String mAverageRating = "";
 	public String mNumberOfRatings = "";
+	public ArrayList<GameComment> mCommentList = new ArrayList<GameComment>();
 	
 	public Game(String name) {
 		mId = UUID.randomUUID();
@@ -86,6 +89,7 @@ public class Game {
 			boolean inStatistics = false;
 			boolean inRatings = false;
 			boolean inRanks = false;
+			boolean inDescription = false;
 	    	
 		    int eventType = parser.getEventType();
 		    while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -101,10 +105,16 @@ public class Game {
 			    			}
 			    			inItem = true;
 			    			
+			    		} else if (inItem && (parser.getName().compareTo("name") == 0)) {
+			    			if (parser.getAttributeValue(null, "type").compareTo("primary") == 0) {
+			    				mName = parser.getAttributeValue(null,  "value");
+			    			}
 			    		} else if (inItem && (parser.getName().compareTo("yearpublished") == 0)) {
 			    			mYearPublished = parser.getAttributeValue(null,  "value");
 			    		} else if (inItem && (parser.getName().compareTo("image") == 0)) {
 			    			mThumbnailUrl = getTextFromParser(parser);
+			    		} else if (inItem && (parser.getName().compareTo("description") == 0)) {
+			    			inDescription = true;
 			    		} else if (inItem && (parser.getName().compareTo("statistics") == 0)) {
 			    			inStatistics = true;
 			    		} else if (inStatistics && (parser.getName().compareTo("ratings") == 0)) {
@@ -126,6 +136,8 @@ public class Game {
 		    		case XmlPullParser.END_TAG:
 			    		if (inItem && (parser.getName().compareTo("item") == 0)) {
 			    			inItem = false;
+			    		} else if (inItem && (parser.getName().compareTo("description") == 0)) {
+			    			inDescription = false;
 			    		} else if (inStatistics && (parser.getName().compareTo("statistics") == 0)) {
 			    			inStatistics = false;
 			    		} else if (inRatings && (parser.getName().compareTo("ratings") == 0)) {
@@ -136,6 +148,9 @@ public class Game {
 			    		break;
 			    		
 		    		case XmlPullParser.TEXT:
+		    			if (inDescription) {
+		    				mDescription = parser.getText();
+		    			}
 			    		break;
 	
 			    		
