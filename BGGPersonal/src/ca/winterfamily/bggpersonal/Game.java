@@ -3,6 +3,7 @@ package ca.winterfamily.bggpersonal;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -24,6 +25,10 @@ public class Game {
 	public String mRank = "";
 	public String mAverageRating = "";
 	public String mNumberOfRatings = "";
+	public String mMinPlayers = "";
+	public String mMaxPlayers = "";
+	public String mPlayingTime = "";
+		
 	public ArrayList<GameComment> mCommentList = new ArrayList<GameComment>();
 	
 	public Game(String name) {
@@ -80,7 +85,7 @@ public class Game {
 	    return text;
  	}
 	
-	public void populateFromXML(String xml) {
+	public synchronized void populateFromXML(String xml) {
 		XmlPullParser parser = Xml.newPullParser();
 		try {
 			parser.setInput(new StringReader(xml));
@@ -111,6 +116,12 @@ public class Game {
 			    			}
 			    		} else if (inItem && (parser.getName().compareTo("yearpublished") == 0)) {
 			    			mYearPublished = parser.getAttributeValue(null,  "value");
+			    		} else if (inItem && (parser.getName().compareTo("minplayers") == 0)) {
+			    			mMinPlayers = parser.getAttributeValue(null,  "value");
+			    		} else if (inItem && (parser.getName().compareTo("maxplayers") == 0)) {
+			    			mMaxPlayers = parser.getAttributeValue(null,  "value");
+			    		} else if (inItem && (parser.getName().compareTo("playingtime") == 0)) {
+			    			mPlayingTime = parser.getAttributeValue(null,  "value");
 			    		} else if (inItem && (parser.getName().compareTo("image") == 0)) {
 			    			mThumbnailUrl = getTextFromParser(parser);
 			    		} else if (inItem && (parser.getName().compareTo("description") == 0)) {
@@ -126,6 +137,13 @@ public class Game {
 			    			if (rankname.compareTo("boardgame") == 0) {
 			    				mRank = parser.getAttributeValue(null, "value");
 			    			}
+			    		} else if (inItem && (parser.getName().compareTo("comment") == 0)) {
+			    			GameComment comment = new GameComment();
+			    			comment.mRating = parser.getAttributeValue(null, "rating");
+			    			comment.mRatingUser = parser.getAttributeValue(null, "username");
+			    			comment.mComment = parser.getAttributeValue(null, "value");
+			    			mCommentList.add(comment);
+			    			
 			    		} else if (inRatings && (parser.getName().compareTo("usersrated") == 0)) {
 			    			mNumberOfRatings = parser.getAttributeValue(null, "value");
 			    		} else if (inRatings && (parser.getName().compareTo("average") == 0)) {
@@ -158,6 +176,7 @@ public class Game {
 	
 	            eventType = parser.next();
 		    }
+		    Collections.sort(mCommentList);
 	  
 		} catch (XmlPullParserException e) {
 			return;

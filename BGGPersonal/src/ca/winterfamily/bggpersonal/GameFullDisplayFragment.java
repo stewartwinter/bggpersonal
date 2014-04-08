@@ -24,9 +24,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,10 +42,16 @@ public class GameFullDisplayFragment extends Fragment {
 	private TextView mYearPublishedTextView;
 	private TextView mNameTextView;
 	private TextView mRatingTextView;
+	private TextView mPlayers;
+	private TextView mPlayingTime;
 	private TextView mUsersRatingTextView;
 	private TextView mRankTextView;
 	private ImageView mThumbnailImageView;
 	private TextView mDescriptionView;
+	private TextView mComments;
+	private ScrollView mOverallScrollArea;
+	private ScrollView mDescScrollArea;
+	private ScrollView mCommentScrollArea;
 	
 	Game mGame = null;
 	
@@ -67,20 +75,63 @@ public class GameFullDisplayFragment extends Fragment {
 		}
 		
 		mYearPublishedTextView = (TextView) v.findViewById(R.id.game_full_display_year_published);
+		mPlayers = (TextView) v.findViewById(R.id.game_full_display_players);
+		mPlayingTime = (TextView) v.findViewById(R.id.game_full_display_playingtime);
 		mNameTextView = (TextView) v.findViewById(R.id.game_full_display_name);
 		mThumbnailImageView = (ImageView) v.findViewById(R.id.game_full_display_image);
 		mRatingTextView = (TextView) v.findViewById(R.id.game_full_display_rating);
 		mUsersRatingTextView = (TextView) v.findViewById(R.id.game_full_display_users_rating);
 		mRankTextView = (TextView) v.findViewById(R.id.game_full_display_rank);
 		mDescriptionView = (TextView) v.findViewById(R.id.game_full_display_description);
+		mComments = (TextView) v.findViewById(R.id.game_full_display_comments);
+		mOverallScrollArea = (ScrollView) v.findViewById(R.id.game_full_display_overallAreaScroller);
+		mDescScrollArea = (ScrollView) v.findViewById(R.id.game_full_display_descriptionAreaScroller);
+		mCommentScrollArea = (ScrollView) v.findViewById(R.id.game_full_display_commentsAreaScroller);
+		
+		// fix up scrollviews
+		mOverallScrollArea.setOnTouchListener(new View.OnTouchListener() 
+		{
+		       public boolean onTouch(View p_v, MotionEvent p_event) 
+		        {
+		    	   mDescScrollArea.getParent().requestDisallowInterceptTouchEvent(false);
+		    	   mCommentScrollArea.getParent().requestDisallowInterceptTouchEvent(false);
+		           //  We will have to follow above for all scrollable contents
+		           return false;
+		        }
+		});
+		mDescScrollArea.setOnTouchListener(new View.OnTouchListener() 
+		{
+		      public boolean onTouch(View p_v, MotionEvent p_event)
+		       {
+		          // this will disallow the touch request for parent scroll on touch of child view
+		           p_v.getParent().requestDisallowInterceptTouchEvent(true);
+		           return false;
+		       }
+		});
+		mCommentScrollArea.setOnTouchListener(new View.OnTouchListener() 
+		{
+		      public boolean onTouch(View p_v, MotionEvent p_event)
+		       {
+		          // this will disallow the touch request for parent scroll on touch of child view
+		           p_v.getParent().requestDisallowInterceptTouchEvent(true);
+		           return false;
+		       }
+		});
 		
 		if (mGame != null) {
 			mNameTextView.setText(mGame.getName());
 			mYearPublishedTextView.setText("Published: " + mGame.mYearPublished);
+			mPlayers.setText("Players: " + mGame.mMinPlayers + " to " + mGame.mMaxPlayers);
+			mPlayingTime.setText("Duration: " + mGame.mPlayingTime);
 			mRatingTextView.setText("Average Rating: " + mGame.mAverageRating);
 			mUsersRatingTextView.setText("Users Rating: " + mGame.mNumberOfRatings);
 			mRankTextView.setText("BGG Rank: " + mGame.mRank);
 			mDescriptionView.setText("Description (scrollable): \n" + mGame.mDescription);
+			String commentStr = "";
+			for(GameComment comment : mGame.mCommentList){ 
+				commentStr += comment.toString() + "\n";
+			}
+			mComments.setText("Comments (scrollable):\n" + commentStr);
 			if (mGame.mThumbnailUrl.length() > 0) {
 				BGGRemoteGetDrawableFromURL rem = new BGGRemoteGetDrawableFromURL();
 				rem.execute(mGame.mThumbnailUrl);
