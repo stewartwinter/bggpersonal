@@ -62,19 +62,20 @@ public class HotGamesListFragment extends ListFragment {
 		Game game = ((GameAdapter)getListAdapter()).getItem(position);
 		Log.d("BGGPersonal", game.getName() + " clicked");
 		
-		BGGRemoteGameInfo rem = new BGGRemoteGameInfo();
-		rem.execute(game.mBggId);
-		String xml = "";
-		try {
-			xml = rem.get();
-		} catch (InterruptedException e) {
+//		BGGRemoteGameInfo rem = new BGGRemoteGameInfo();
+//		BGGRemoteGameInfo.BGGRemoteGameInfoParm parm = new BGGRemoteGameInfo.BGGRemoteGameInfoParm(game);
+//		rem.execute(parm);
+//		String xml = "";
+//		try {
+//			xml = rem.get();
+//		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
+//			e.printStackTrace();
+//		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		game.populateFromXML(xml);
+//			e.printStackTrace();
+//		}
+//		game.populateFromXML(xml);
 		Intent intent = new Intent(getActivity(), GameFullDisplayActivity.class);
 		intent.putExtra(GameFullDisplayFragment.EXTRA_GAME_ID, game.mBggId);
 		intent.putExtra(GameFullDisplayFragment.EXTRA_PARENT_ACTIVITY, getActivity().getClass().getName());

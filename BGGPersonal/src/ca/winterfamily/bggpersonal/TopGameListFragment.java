@@ -62,8 +62,8 @@ public class TopGameListFragment extends ListFragment {
 		Game game = ((GameAdapter)getListAdapter()).getItem(position);
 		Log.d("BGGPersonal", game.getName() + " clicked");
 		
-		BGGRemoteGameInfo rem = new BGGRemoteGameInfo();
-		rem.execute(game.mBggId);
+/*		BGGRemoteGameInfo rem = new BGGRemoteGameInfo();
+		rem.execute(new BGGRemoteGameInfo.BGGRemoteGameInfoParm(game));
 		String xml = "";
 		try {
 			xml = rem.get();
@@ -74,7 +74,7 @@ public class TopGameListFragment extends ListFragment {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		game.populateFromXML(xml);
+		game.populateFromXML(xml);*/
 		Intent intent = new Intent(getActivity(), GameFullDisplayActivity.class);
 		intent.putExtra(GameFullDisplayFragment.EXTRA_GAME_ID, game.mBggId);
 		intent.putExtra(GameFullDisplayFragment.EXTRA_PARENT_ACTIVITY, getActivity().getClass().getName());

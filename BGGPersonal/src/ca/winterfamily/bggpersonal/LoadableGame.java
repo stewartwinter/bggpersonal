@@ -18,8 +18,11 @@ public class LoadableGame {
 		} else {
 			synchronized(this) {
 				if (!mIsLoaded) {
+					mGame = new Game();
+					mGame.mBggId = mBggId.toString();
 					BGGRemoteGameInfo rem = new BGGRemoteGameInfo();
-					rem.execute(mBggId.toString());
+					BGGRemoteGameInfo.BGGRemoteGameInfoParm parm = new BGGRemoteGameInfo.BGGRemoteGameInfoParm(mGame);
+					rem.execute(parm);
 					String xml = "";
 					try {
 						xml = rem.get();
@@ -33,8 +36,6 @@ public class LoadableGame {
 						return null;
 					}
 					
-					mGame = new Game();
-					mGame.mBggId = mBggId.toString();
 					mGame.populateFromXML(xml);
 					mIsLoaded = true;
 				}
