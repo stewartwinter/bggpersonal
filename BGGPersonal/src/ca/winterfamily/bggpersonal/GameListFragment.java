@@ -104,7 +104,25 @@ public class GameListFragment extends ListFragment {
 			TextView gamePlaysTextview = (TextView)convertView.findViewById(R.id.collection_item_game_plays);
 			gamePlaysTextview.setText("Plays: " + ((Integer)game.mPlays).toString());
 			TextView gameOwnedTextview = (TextView)convertView.findViewById(R.id.collection_item_game_owned);
-			gameOwnedTextview.setText(game.mOwned?"Owned":"");
+			gameOwnedTextview.setText("");
+			if (game.mOwned) {
+				gameOwnedTextview.setText("Own");
+			} else if (game.mWishlist.compareTo("0") != 0) {
+				if (game.mWishlistPriority.compareTo("1") == 0) {
+					gameOwnedTextview.setText("Buy");
+				} else if (game.mWishlistPriority.compareTo("2") == 0) {
+					gameOwnedTextview.setText("Buy");
+				} else if (game.mWishlistPriority.compareTo("3") == 0) {
+					gameOwnedTextview.setText("Want");
+				} else if (game.mWishlistPriority.compareTo("4") == 0) {
+					gameOwnedTextview.setText("Maybe");
+				} else if (game.mWishlistPriority.compareTo("5") == 0) {
+					gameOwnedTextview.setText("X");
+				}
+				
+			} else if (game.mWanted.compareTo("0") != 0) {
+				gameOwnedTextview.setText("Want");
+			}
 			
 			
 			return convertView;

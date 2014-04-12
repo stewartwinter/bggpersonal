@@ -20,6 +20,8 @@ public class Game {
 	public int mPlays = 0;
 	public String mBggId = "";
 	public String mWishlist = "";
+	public String mWishlistPriority = "";
+	public String mWanted = "";
 	public String mYearPublished = "";
 	public String mThumbnailUrl = "";
 	public String mRank = "";

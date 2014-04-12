@@ -126,6 +126,8 @@ public class BGGUser {
 		    			inStatus = true;
 		    			String own = parser.getAttributeValue(null,  "own");
 		    			curGame.mWishlist = parser.getAttributeValue(null, "wishlist");
+		    			curGame.mWanted = parser.getAttributeValue(null, "wanttobuy");
+		    			curGame.mWishlistPriority = parser.getAttributeValue(null, "wishlistpriority");
 		    			if (own.compareToIgnoreCase("1") == 0) {
 		    				curGame.mOwned = true;
 		    			}
@@ -285,7 +287,7 @@ public class BGGUser {
 		collectionRem.execute(new BGGRemoteUserCollection.BGGRemoteUserCollectionParm(this, mUserName));
 	}
 	
-	public void populatTopGames()  throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
+	public void populateTopGames()  throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
 		RemoteTopGames topgamesRem = new RemoteTopGames();
 		topgamesRem.execute(new RemoteTopGames.RemoteTopGamesParm(this,  0, 100));
 
@@ -307,7 +309,7 @@ public class BGGUser {
 		addHotGames(xml);
 		
 
-		populatTopGames();	
+		populateTopGames();	
 		populateUserCollection();
 		
 	}
