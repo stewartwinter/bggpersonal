@@ -2,6 +2,8 @@ package ca.winterfamily.bggpersonal;
 
 import java.util.concurrent.ExecutionException;
 
+import android.util.Log;
+
 public class LoadableGame {
 	
 	private Game mGame;
@@ -18,10 +20,11 @@ public class LoadableGame {
 		} else {
 			synchronized(this) {
 				if (!mIsLoaded) {
+					Log.d("BGGPersonal", "Loading details for game " + mBggId.toString());
 					mGame = new Game();
 					mGame.mBggId = mBggId.toString();
 					BGGRemoteGameInfo rem = new BGGRemoteGameInfo();
-					BGGRemoteGameInfo.BGGRemoteGameInfoParm parm = new BGGRemoteGameInfo.BGGRemoteGameInfoParm(mGame);
+					BGGRemoteGameInfo.BGGRemoteGameInfoParm parm = new BGGRemoteGameInfo.BGGRemoteGameInfoParm(mGame, false);
 					rem.execute(parm);
 					String xml = "";
 					try {
@@ -38,6 +41,12 @@ public class LoadableGame {
 					
 					mGame.populateFromXML(xml);
 					mIsLoaded = true;
+					
+					// now load comments
+					rem = new BGGRemoteGameInfo();
+					rem.execute(new BGGRemoteGameInfo.BGGRemoteGameInfoParm(mGame, true));
+					mGame.populateFromXML(xml);
+					
 				}
 				return mGame;
 			}

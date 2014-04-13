@@ -145,6 +145,7 @@ public class GameFullDisplayFragment extends Fragment {
 					e.printStackTrace();
 				}
 			}
+			refreshComments();
 		} else {
 			mNameTextView.setText("Game not found");
 		}
@@ -171,5 +172,30 @@ public class GameFullDisplayFragment extends Fragment {
 				return super.onOptionsItemSelected(item);
 		}
 	}
-
+	
+	private void refreshComments() {
+		if (!mGame.mCommentList.isEmpty()) {
+			return;
+		}
+		new Thread(new Runnable() {
+		    @Override
+		    public void run() {
+		        try {
+		            Thread.sleep(3000);
+		        } catch (InterruptedException e) {
+		            e.printStackTrace();
+		        }
+		        getActivity().runOnUiThread(new Runnable() {
+		            @Override
+		            public void run() {
+		    			String commentStr = "";
+		    			for(GameComment comment : mGame.mCommentList){ 
+		    				commentStr += comment.toString() + "\n";
+		    			}
+		    			mComments.setText("Comments (scrollable):\n" + commentStr);
+		            }
+		        });
+		    }
+		}).start();
+	}
 }

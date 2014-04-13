@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.text.Html;
 import android.util.Log;
 import android.util.Xml;
 
@@ -97,6 +98,7 @@ public class Game {
 			boolean inRatings = false;
 			boolean inRanks = false;
 			boolean inDescription = false;
+			boolean processComments = mCommentList.isEmpty();
 	    	
 		    int eventType = parser.getEventType();
 		    while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -139,7 +141,8 @@ public class Game {
 			    			if (rankname.compareTo("boardgame") == 0) {
 			    				mRank = parser.getAttributeValue(null, "value");
 			    			}
-			    		} else if (inItem && (parser.getName().compareTo("comment") == 0)) {
+			    		} else if (inItem && (parser.getName().compareTo("comments") == 0)) {
+			    		} else if (inItem && processComments && (parser.getName().compareTo("comment") == 0)) {
 			    			GameComment comment = new GameComment();
 			    			comment.mRating = parser.getAttributeValue(null, "rating");
 			    			comment.mRatingUser = parser.getAttributeValue(null, "username");
@@ -169,7 +172,7 @@ public class Game {
 			    		
 		    		case XmlPullParser.TEXT:
 		    			if (inDescription) {
-		    				mDescription = parser.getText();
+		    				mDescription = cleanupXmlText(parser.getText());
 		    			}
 			    		break;
 	
@@ -186,5 +189,10 @@ public class Game {
 			return;
 		}
 		
+	}
+	
+	String cleanupXmlText(String in) {
+		String result = in.replace("&#10;", "\n");
+		return Html.fromHtml(result).toString();
 	}
 }
