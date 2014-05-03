@@ -3,7 +3,6 @@
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentManager"/>
 <fullyQualifiedTypeName name="android.os.Bundle"/>
-<fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
 <fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.R.string"/>
 <fullyQualifiedTypeName name="android.R.layout"/>
 <fullyQualifiedTypeName name="android.widget.ArrayAdapter"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.text.Html"/>
+<fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
 </qualifiedTypeNameHistroy>

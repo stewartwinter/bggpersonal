@@ -16,6 +16,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -185,7 +186,9 @@ public class GameFullDisplayFragment extends Fragment {
 		        } catch (InterruptedException e) {
 		            e.printStackTrace();
 		        }
-		        getActivity().runOnUiThread(new Runnable() {
+		        FragmentActivity activity = getActivity();
+		        if (activity != null) {
+		        	activity.runOnUiThread(new Runnable() {
 		            @Override
 		            public void run() {
 		    			String commentStr = "";
@@ -195,6 +198,7 @@ public class GameFullDisplayFragment extends Fragment {
 		    			mComments.setText("Comments (scrollable):\n" + commentStr);
 		            }
 		        });
+		        }
 		    }
 		}).start();
 	}

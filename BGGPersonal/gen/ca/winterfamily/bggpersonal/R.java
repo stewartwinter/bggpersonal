@@ -48,7 +48,6 @@ public final class R {
         public static final int menu_item_hot=0x7f090019;
         public static final int menu_item_refresh=0x7f09001d;
         public static final int menu_item_search=0x7f09001c;
-        public static final int menu_item_search_clear=0x7f090020;
         public static final int menu_item_search_control=0x7f09001f;
         public static final int menu_item_top=0x7f09001a;
         public static final int search_result_game_name=0x7f090016;
