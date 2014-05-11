@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.widget.EditText"/>
-<fullyQualifiedTypeName name="android.support.v4.app.FragmentManager"/>
-<fullyQualifiedTypeName name="android.os.Bundle"/>
-<fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.R.string"/>
-<fullyQualifiedTypeName name="android.R.layout"/>
-<fullyQualifiedTypeName name="android.widget.ArrayAdapter"/>
-<fullyQualifiedTypeName name="java.io.ByteArrayOutputStream"/>
-<fullyQualifiedTypeName name="org.xmlpull.v1.XmlPullParser"/>
-<fullyQualifiedTypeName name="android.util.Xml"/>
-<fullyQualifiedTypeName name="java.io.StringReader"/>
 <fullyQualifiedTypeName name="android.view.MenuInflater"/>
 <fullyQualifiedTypeName name="android.view.Menu"/>
 <fullyQualifiedTypeName name="ca.winterfamily.bggpersonal.R.menu"/>
@@ -60,4 +50,14 @@
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.text.Html"/>
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
+<fullyQualifiedTypeName name="android.os.Handler"/>
+<fullyQualifiedTypeName name="android.text.SpannableString"/>
+<fullyQualifiedTypeName name="android.text.style.ForegroundColorSpan"/>
+<fullyQualifiedTypeName name="android.text.SpannableStringBuilder"/>
+<fullyQualifiedTypeName name="android.text.Spannable"/>
+<fullyQualifiedTypeName name="android.R.color"/>
+<fullyQualifiedTypeName name="android.graphics.Color"/>
+<fullyQualifiedTypeName name="android.text.style.StyleSpan"/>
+<fullyQualifiedTypeName name="android.graphics.Typeface"/>
+<fullyQualifiedTypeName name="android.text.style.BackgroundColorSpan"/>
 </qualifiedTypeNameHistroy>

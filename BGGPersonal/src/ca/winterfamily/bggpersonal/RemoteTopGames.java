@@ -11,6 +11,7 @@ public class RemoteTopGames extends BGGRemote<RemoteTopGames.RemoteTopGamesParm>
 	private static final String AFTER = "after";
 	
 	private BGGUser mBggUser;
+	private Integer mAfter;
 	
 	static class RemoteTopGamesParm {
 		final public Integer mAfter;
@@ -29,6 +30,7 @@ public class RemoteTopGames extends BGGRemote<RemoteTopGames.RemoteTopGamesParm>
 	protected String getUrlString(RemoteTopGamesParm... parms)
 	{
 		mBggUser = parms[0].mUser;
+		mAfter = parms[0].mAfter;
 		
 		String url = TOPGAMES;
 		if (parms[0].mAfter != null) {

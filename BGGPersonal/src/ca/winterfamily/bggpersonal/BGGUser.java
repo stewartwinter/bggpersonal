@@ -17,6 +17,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Xml;
 
@@ -169,8 +170,6 @@ public class BGGUser {
 	}
 	
 	public void addTopGames(String xml) throws XmlPullParserException, IOException {
-		mTopGames.clear();
-		
 		XmlPullParser parser = Xml.newPullParser();
 		parser.setInput(new StringReader(xml));
 	    int eventType = parser.getEventType();
@@ -288,8 +287,12 @@ public class BGGUser {
 	}
 	
 	public void populateTopGames()  throws InterruptedException, ExecutionException, XmlPullParserException, IOException {
+		mTopGames.clear();
 		RemoteTopGames topgamesRem = new RemoteTopGames();
 		topgamesRem.execute(new RemoteTopGames.RemoteTopGamesParm(this,  0, 100));
+		
+		RemoteTopGames topgamesRem200 = new RemoteTopGames();
+		topgamesRem200.execute(new RemoteTopGames.RemoteTopGamesParm(this,  100, 25));
 
 	}
 

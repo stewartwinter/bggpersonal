@@ -62,20 +62,6 @@ public class HotGamesListFragment extends ListFragment {
 		Game game = ((GameAdapter)getListAdapter()).getItem(position);
 		Log.d("BGGPersonal", game.getName() + " clicked");
 		
-//		BGGRemoteGameInfo rem = new BGGRemoteGameInfo();
-//		BGGRemoteGameInfo.BGGRemoteGameInfoParm parm = new BGGRemoteGameInfo.BGGRemoteGameInfoParm(game);
-//		rem.execute(parm);
-//		String xml = "";
-//		try {
-//			xml = rem.get();
-//		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		game.populateFromXML(xml);
 		Intent intent = new Intent(getActivity(), GameFullDisplayActivity.class);
 		intent.putExtra(GameFullDisplayFragment.EXTRA_GAME_ID, game.mBggId);
 		intent.putExtra(GameFullDisplayFragment.EXTRA_PARENT_ACTIVITY, getActivity().getClass().getName());
@@ -100,7 +86,7 @@ public class HotGamesListFragment extends ListFragment {
 			Game game = getItem(position);
 			
 			TextView gameNameTextview = (TextView)convertView.findViewById(R.id.hot_games_game_name);
-			gameNameTextview.setText(game.getName());
+			gameNameTextview.setText(game.getName() + " (" + game.mYearPublished + ")");
 			
 			return convertView;
 		}

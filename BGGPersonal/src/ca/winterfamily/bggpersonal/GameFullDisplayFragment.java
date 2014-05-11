@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -19,7 +21,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -128,11 +136,12 @@ public class GameFullDisplayFragment extends Fragment {
 			mUsersRatingTextView.setText("Users Rating: " + mGame.mNumberOfRatings);
 			mRankTextView.setText("BGG Rank: " + mGame.mRank);
 			mDescriptionView.setText("Description (scrollable): \n" + mGame.mDescription);
-			String commentStr = "";
+			SpannableStringBuilder commentStr = new SpannableStringBuilder("");
+			final SpannableString lineEnd = new SpannableString("\n");
 			for(GameComment comment : mGame.mCommentList){ 
-				commentStr += comment.toString() + "\n";
+				commentStr.append(comment.toSpannableString()).append(lineEnd);
 			}
-			mComments.setText("Comments (scrollable):\n" + commentStr);
+			mComments.setText(commentStr);
 			if (mGame.mThumbnailUrl.length() > 0) {
 				BGGRemoteGetDrawableFromURL rem = new BGGRemoteGetDrawableFromURL();
 				rem.execute(mGame.mThumbnailUrl);
@@ -191,11 +200,12 @@ public class GameFullDisplayFragment extends Fragment {
 		        	activity.runOnUiThread(new Runnable() {
 		            @Override
 		            public void run() {
-		    			String commentStr = "";
+		    			SpannableStringBuilder commentStr = new SpannableStringBuilder("");
+		    			final SpannableString lineEnd = new SpannableString("\n");
 		    			for(GameComment comment : mGame.mCommentList){ 
-		    				commentStr += comment.toString() + "\n";
+		    				commentStr.append(comment.toSpannableString()).append(lineEnd);
 		    			}
-		    			mComments.setText("Comments (scrollable):\n" + commentStr);
+		    			mComments.setText(commentStr);
 		            }
 		        });
 		        }
