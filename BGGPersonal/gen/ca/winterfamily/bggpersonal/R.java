@@ -21,17 +21,21 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int ic_action_collapse=0x7f020000;
+        public static final int ic_action_expand=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
         public static final int collection_item_game_name=0x7f090001;
         public static final int collection_item_game_owned=0x7f090002;
         public static final int collection_item_game_plays=0x7f090003;
         public static final int fragmentContainer=0x7f090000;
-        public static final int game_full_display_comments=0x7f090014;
-        public static final int game_full_display_commentsAreaScroller=0x7f090013;
-        public static final int game_full_display_description=0x7f090012;
-        public static final int game_full_display_descriptionAreaScroller=0x7f090011;
+        public static final int game_full_display_comments=0x7f090016;
+        public static final int game_full_display_commentsAreaScroller=0x7f090015;
+        public static final int game_full_display_comments_title=0x7f090014;
+        public static final int game_full_display_description=0x7f090013;
+        public static final int game_full_display_descriptionAreaScroller=0x7f090012;
+        public static final int game_full_display_description_title=0x7f090011;
         public static final int game_full_display_image=0x7f09000b;
         public static final int game_full_display_name=0x7f090009;
         public static final int game_full_display_overallAreaScroller=0x7f090008;
@@ -42,20 +46,20 @@ public final class R {
         public static final int game_full_display_users_rating=0x7f090010;
         public static final int game_full_display_year_published=0x7f09000a;
         public static final int game_name=0x7f090004;
-        public static final int hot_games_game_name=0x7f090015;
-        public static final int menu_item_bgg_info=0x7f09001e;
-        public static final int menu_item_collection=0x7f09001b;
-        public static final int menu_item_hot=0x7f090019;
-        public static final int menu_item_refresh=0x7f09001d;
-        public static final int menu_item_search=0x7f09001c;
-        public static final int menu_item_search_control=0x7f09001f;
-        public static final int menu_item_top=0x7f09001a;
-        public static final int search_result_game_name=0x7f090016;
+        public static final int hot_games_game_name=0x7f090017;
+        public static final int menu_item_bgg_info=0x7f090020;
+        public static final int menu_item_collection=0x7f09001d;
+        public static final int menu_item_hot=0x7f09001b;
+        public static final int menu_item_refresh=0x7f09001f;
+        public static final int menu_item_search=0x7f09001e;
+        public static final int menu_item_search_control=0x7f090021;
+        public static final int menu_item_top=0x7f09001c;
+        public static final int search_result_game_name=0x7f090018;
         public static final int setting_bgguser=0x7f090005;
         public static final int setting_cancel=0x7f090007;
         public static final int setting_save=0x7f090006;
-        public static final int top_games_game_name=0x7f090017;
-        public static final int top_games_game_rank=0x7f090018;
+        public static final int top_games_game_name=0x7f090019;
+        public static final int top_games_game_rank=0x7f09001a;
     }
     public static final class layout {
         public static final int activity_fragment=0x7f030000;
@@ -81,14 +85,16 @@ public final class R {
         public static final int app_name=0x7f060000;
         public static final int bgg_info=0x7f060008;
         public static final int bgg_user_name=0x7f060009;
-        public static final int cancel_button=0x7f060013;
+        public static final int cancel_button=0x7f060015;
         public static final int clear_search=0x7f060006;
         public static final int collection_title=0x7f06000b;
+        public static final int comments_section=0x7f060011;
+        public static final int description_section=0x7f060012;
         public static final int full_display_fragment_title=0x7f06000d;
         public static final int game_name_label=0x7f06000a;
         public static final int hot_games_fragment_title=0x7f06000f;
-        public static final int save_button=0x7f060012;
-        public static final int search_hint=0x7f060011;
+        public static final int save_button=0x7f060014;
+        public static final int search_hint=0x7f060013;
         public static final int search_results_fragment_title=0x7f060010;
         public static final int settings_title=0x7f06000c;
         public static final int top_games_fragment_title=0x7f06000e;

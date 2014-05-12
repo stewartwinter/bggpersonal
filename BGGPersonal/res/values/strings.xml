@@ -19,6 +19,9 @@
 	<string name="top_games_fragment_title">Top Games</string>
 	<string name="hot_games_fragment_title">Hot Games</string>
 	<string name="search_results_fragment_title">Search Games</string>
+	
+	<string name="comments_section">Comments: (scrollable)</string>
+	<string name="description_section">Description: (scrollable)</string>
 			
 	<string name="search_hint">Search BGG Games</string>
 	

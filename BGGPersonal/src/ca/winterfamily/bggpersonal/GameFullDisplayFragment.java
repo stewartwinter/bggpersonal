@@ -56,10 +56,12 @@ public class GameFullDisplayFragment extends Fragment {
 	private TextView mUsersRatingTextView;
 	private TextView mRankTextView;
 	private ImageView mThumbnailImageView;
+	private TextView mDescriptionTitle;
 	private TextView mDescriptionView;
 	private TextView mComments;
 	private ScrollView mOverallScrollArea;
 	private ScrollView mDescScrollArea;
+	private TextView mCommentsTitle;
 	private ScrollView mCommentScrollArea;
 	
 	Game mGame = null;
@@ -91,10 +93,12 @@ public class GameFullDisplayFragment extends Fragment {
 		mRatingTextView = (TextView) v.findViewById(R.id.game_full_display_rating);
 		mUsersRatingTextView = (TextView) v.findViewById(R.id.game_full_display_users_rating);
 		mRankTextView = (TextView) v.findViewById(R.id.game_full_display_rank);
+		mDescriptionTitle = (TextView) v.findViewById(R.id.game_full_display_description_title);
 		mDescriptionView = (TextView) v.findViewById(R.id.game_full_display_description);
 		mComments = (TextView) v.findViewById(R.id.game_full_display_comments);
 		mOverallScrollArea = (ScrollView) v.findViewById(R.id.game_full_display_overallAreaScroller);
 		mDescScrollArea = (ScrollView) v.findViewById(R.id.game_full_display_descriptionAreaScroller);
+		mCommentsTitle = (TextView) v.findViewById(R.id.game_full_display_comments_title);
 		mCommentScrollArea = (ScrollView) v.findViewById(R.id.game_full_display_commentsAreaScroller);
 		
 		// fix up scrollviews
@@ -127,6 +131,42 @@ public class GameFullDisplayFragment extends Fragment {
 		       }
 		});
 		
+		mDescriptionTitle.setOnClickListener(new View.OnClickListener()
+		{
+
+			@Override
+			public void onClick(View arg0) {
+					if (mDescScrollArea.getVisibility()==View.VISIBLE) {
+					mDescScrollArea.setVisibility(View.GONE);
+					Drawable img = getActivity().getResources().getDrawable( R.drawable.ic_action_expand );
+					mDescriptionTitle.setCompoundDrawablesWithIntrinsicBounds(null,  null, img,  null);
+				} else {
+					mDescScrollArea.setVisibility(View.VISIBLE);
+					Drawable img = getActivity().getResources().getDrawable( R.drawable.ic_action_collapse );
+					mDescriptionTitle.setCompoundDrawablesWithIntrinsicBounds(null,  null, img,  null);
+				}
+			}
+
+		   });
+		
+		mCommentsTitle.setOnClickListener(new View.OnClickListener()
+		{
+
+			@Override
+			public void onClick(View arg0) {
+				if (mCommentScrollArea.getVisibility()==View.VISIBLE) {
+					mCommentScrollArea.setVisibility(View.GONE);
+					Drawable img = getActivity().getResources().getDrawable( R.drawable.ic_action_expand );
+					mCommentsTitle.setCompoundDrawablesWithIntrinsicBounds(null,  null, img,  null);
+				} else {
+					mCommentScrollArea.setVisibility(View.VISIBLE);
+					Drawable img = getActivity().getResources().getDrawable( R.drawable.ic_action_collapse );
+					mCommentsTitle.setCompoundDrawablesWithIntrinsicBounds(null,  null, img,  null);
+				}
+			}
+	
+		   });
+		
 		if (mGame != null) {
 			mNameTextView.setText(mGame.getName());
 			mYearPublishedTextView.setText("Published: " + mGame.mYearPublished);
@@ -135,7 +175,7 @@ public class GameFullDisplayFragment extends Fragment {
 			mRatingTextView.setText("Average Rating: " + mGame.mAverageRating);
 			mUsersRatingTextView.setText("Users Rating: " + mGame.mNumberOfRatings);
 			mRankTextView.setText("BGG Rank: " + mGame.mRank);
-			mDescriptionView.setText("Description (scrollable): \n" + mGame.mDescription);
+			mDescriptionView.setText(mGame.mDescription);
 			SpannableStringBuilder commentStr = new SpannableStringBuilder("");
 			final SpannableString lineEnd = new SpannableString("\n");
 			for(GameComment comment : mGame.mCommentList){ 
