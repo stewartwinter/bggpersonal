@@ -292,7 +292,7 @@ public class BGGUser {
 		topgamesRem.execute(new RemoteTopGames.RemoteTopGamesParm(this,  0, 100));
 		
 		RemoteTopGames topgamesRem200 = new RemoteTopGames();
-		topgamesRem200.execute(new RemoteTopGames.RemoteTopGamesParm(this,  100, 25));
+		topgamesRem200.execute(new RemoteTopGames.RemoteTopGamesParm(this,  100, 50));
 
 	}
 

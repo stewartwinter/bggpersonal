@@ -20,6 +20,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <uses-library android:name="android.test.runner" />
         <activity
             android:name="ca.winterfamily.bggpersonal.GameCollectionActivity"
             android:label="@string/collection_title" >
@@ -56,5 +57,8 @@
             </intent-filter>
         </activity>         
        </application>
+       
+<instrumentation android:name="android.test.InstrumentationTestRunner"
+       android:targetPackage="ca.winterfamily.bggpersonal" android:label="Tests for My App" />
 
 </manifest>
