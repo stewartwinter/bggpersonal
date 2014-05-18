@@ -243,6 +243,7 @@ public class BGGUser {
 	
 	public void addSearchResultsFromXML(String xml)  throws XmlPullParserException, IOException {
 		mSearchResults.clear();
+		if (xml == null) return;
 		
 		XmlPullParser parser = Xml.newPullParser();
 		parser.setInput(new StringReader(xml));

@@ -29,7 +29,7 @@ public class GameComment implements Comparable<GameComment>{
 			// eat it
 		}
 		if (rating == 0) {
-			return 0;
+			return Color.rgb(0,0,0);
 		} else {
 			green = rating / 10 * 255;
 			red = (10 - rating) / 10 * 255;

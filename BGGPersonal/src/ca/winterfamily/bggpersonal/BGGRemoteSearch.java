@@ -1,6 +1,8 @@
 package ca.winterfamily.bggpersonal;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -30,7 +32,12 @@ public class BGGRemoteSearch extends BGGRemote<BGGRemoteSearch.BGGRemoteSearchPa
 	
 		if (userparms[0].mSearchString.length() >= 3) {
 			bggUser = userparms[0].mUser;
-			url = BGGURL + userparms[0].mSearchString;
+			try {
+				url = BGGURL + URLEncoder.encode(userparms[0].mSearchString, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		Log.d("BGGPersonal", url);
 		return url;
